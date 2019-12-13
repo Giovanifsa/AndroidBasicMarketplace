@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Android Marketplace</string>
+    <string name="nome_marca_centralizado_view">\t\t\t\t\t\t\tAndroid\nMarketplace</string>
+
+    <string name="palavra_cap_usuario">Usuário</string>
+    <string name="palavra_cap_senha">Senha</string>
+    <string name="palavra_cap_entrar">Entrar</string>
+    <string name="frase_criar_conta">Criar nova conta</string>
+    <string name="frase_senha_esquecida">Esqueceu sua senha?</string>
+    <string name="frase_criando_conta">Criando nova conta</string>
+    <string name="frase_nome_usuario">Novo nome de usuário</string>
+    <string name="frase_nova_senha">Nova senha</string>
+</resources>

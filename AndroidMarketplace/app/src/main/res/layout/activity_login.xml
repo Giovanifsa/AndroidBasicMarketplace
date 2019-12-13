@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".visao.LoginActivity">
+
+    <TextView
+        android:id="@+id/marcaTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/nome_marca_centralizado_view"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.079" />
+
+    <EditText
+        android:id="@+id/campoUsuarioEditText"
+        style="@style/Widget.AppCompat.AutoCompleteTextView"
+        android:layout_width="283dp"
+        android:layout_height="53dp"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="@string/palavra_cap_usuario"
+        android:inputType="textPersonName"
+        android:singleLine="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/marcaTextView"
+        app:layout_constraintVertical_bias="0.289" />
+
+    <EditText
+        android:id="@+id/campoSenhaEditText"
+        android:layout_width="283dp"
+        android:layout_height="53dp"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="@string/palavra_cap_senha"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/campoUsuarioEditText"
+        app:layout_constraintVertical_bias="0.064" />
+
+    <Button
+        android:id="@+id/entrarButton"
+        android:layout_width="283dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="4dp"
+        android:text="@string/palavra_cap_entrar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/campoSenhaEditText"
+        app:layout_constraintVertical_bias="0.107" />
+
+    <TextView
+        android:id="@+id/criandoContaTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/frase_criar_conta"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.818"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/entrarButton"
+        app:layout_constraintVertical_bias="0.135" />
+
+    <TextView
+        android:id="@+id/senhaEsquecidaTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/frase_senha_esquecida"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.797"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/criandoContaTextView"
+        app:layout_constraintVertical_bias="0.209" />
+</androidx.constraintlayout.widget.ConstraintLayout>
