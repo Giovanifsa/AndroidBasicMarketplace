@@ -10,4 +10,9 @@
     <string name="frase_criando_conta">Criando nova conta</string>
     <string name="frase_nome_usuario">Novo nome de usuário</string>
     <string name="frase_nova_senha">Nova senha</string>
+    <string name="frase_pergunta_seguranca">Pergunta de Segurança</string>
+    <string name="frase_sua_resposta_perg_seguranca">Sua Resposta para a pergunta de segurança</string>
+    <string name="frase_insira_sua_resp_perg_seguranca">Insira sua resposta aqui</string>
+    <string name="frase_qual_foi_seu_primeiro_animal_estimacao">Qual foi seu primeiro animal de estimação?</string>
+    <string name="frase_nenhuma_pergunta_selecionada">Nenhuma pergunta selecionada</string>
 </resources>

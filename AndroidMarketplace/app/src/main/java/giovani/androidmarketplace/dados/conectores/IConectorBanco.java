@@ -1,5 +1,7 @@
 package giovani.androidmarketplace.dados.conectores;
 
-public interface IConectorBanco {
+import giovani.androidmarketplace.dados.daos.ICriadorDAOs;
 
+public interface IConectorBanco {
+    public ICriadorDAOs getCriadorDAOs();
 }

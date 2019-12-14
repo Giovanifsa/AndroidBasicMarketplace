@@ -27,9 +27,9 @@
         android:layout_marginTop="56dp"
         android:ems="10"
         android:gravity="center"
+        android:hint="@string/frase_nome_usuario"
         android:inputType="textPersonName"
         android:singleLine="true"
-        android:text="@string/frase_nome_usuario"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -53,5 +53,53 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/novoUsuarioEditText"
         app:layout_constraintVertical_bias="0.034" />
+
+    <Spinner
+        android:id="@+id/pergSegurancaSpinner"
+        android:layout_width="303dp"
+        android:layout_height="47dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pergSegurancaTextView"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/pergSegurancaTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/frase_pergunta_seguranca"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.203"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/novaSenhaEditText"
+        app:layout_constraintVertical_bias="0.02" />
+
+    <TextView
+        android:id="@+id/suaRespostaPergSegTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/frase_sua_resposta_perg_seguranca"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pergSegurancaSpinner"
+        app:layout_constraintVertical_bias="0.022" />
+
+    <EditText
+        android:id="@+id/respPergSegurancaTextView"
+        android:layout_width="303dp"
+        android:layout_height="47dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="@string/frase_insira_sua_resp_perg_seguranca"
+        android:inputType="textMultiLine"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/suaRespostaPergSegTextView"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
