@@ -7,6 +7,7 @@ import java.util.Optional;
 import giovani.androidmarketplace.dados.conectores.EnumGerenciadorBanco;
 import giovani.androidmarketplace.dados.conectores.IConectorBanco;
 import giovani.androidmarketplace.dados.conectores.DadosConexaoBanco;
+import giovani.androidmarketplace.dados.daos.ICriadorDAOs;
 import giovani.androidmarketplace.dados.entidades.Usuario;
 
 public class ContextoAplicacao {
@@ -29,5 +30,25 @@ public class ContextoAplicacao {
         singletonContexto.contextoAndroid = contextoAndroid;
 
         return singletonContexto;
+    }
+
+    public Context getContextoAndroid() {
+        return contextoAndroid;
+    }
+
+    public String getString(int resId) {
+        return contextoAndroid.getString(resId);
+    }
+
+    public IConectorBanco getBancoDadosEmUso() {
+        return bancoDadosEmUso;
+    }
+
+    public ICriadorDAOs getCriadorDAOs() {
+        return bancoDadosEmUso.getCriadorDAOs();
+    }
+
+    public CriadorGerenciadores getCriadorGerenciadores() {
+        return new CriadorGerenciadores(this);
     }
 }

@@ -5,7 +5,7 @@ import giovani.androidmarketplace.dados.daos.ICriadorDAOs;
 import giovani.androidmarketplace.dados.daos.IUsuarioDAO;
 
 public class CriadorDAOsSQLite implements ICriadorDAOs {
-    private ConectorBancoSQLite conectorSQLite.
+    private ConectorBancoSQLite conectorSQLite;
 
     public CriadorDAOsSQLite(ConectorBancoSQLite conectorSQLite) {
         this.conectorSQLite = conectorSQLite;

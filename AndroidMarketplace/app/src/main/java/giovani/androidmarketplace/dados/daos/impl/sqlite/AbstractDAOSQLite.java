@@ -5,10 +5,10 @@ import android.database.sqlite.SQLiteDatabase;
 
 import giovani.androidmarketplace.dados.conectores.impl.ConectorBancoSQLite;
 
-public abstract class DAOSQLite {
+public abstract class AbstractDAOSQLite {
     private ConectorBancoSQLite conectorSQLite;
 
-    public DAOSQLite(ConectorBancoSQLite conectorSQLite) {
+    public AbstractDAOSQLite(ConectorBancoSQLite conectorSQLite) {
         this.conectorSQLite = conectorSQLite;
     }
 
@@ -33,6 +33,14 @@ public abstract class DAOSQLite {
 
     public int getInt(Cursor consulta, String nomeColuna) {
         return consulta.getInt(consulta.getColumnIndex(nomeColuna));
+    }
+
+    public String getString(Cursor consulta, String nomeColuna) {
+        return consulta.getString(consulta.getColumnIndex(nomeColuna));
+    }
+
+    public long getLong(Cursor consulta, String nomeColuna) {
+        return consulta.getLong(consulta.getColumnIndex(nomeColuna));
     }
 
     public ConectorBancoSQLite getConectorSQLite() {

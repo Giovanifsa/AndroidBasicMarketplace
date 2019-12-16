@@ -2,6 +2,7 @@
     <string name="app_name">Android Marketplace</string>
     <string name="nome_marca_centralizado_view">\t\t\t\t\t\t\tAndroid\nMarketplace</string>
 
+    <!-- Traduções de UI -->
     <string name="palavra_cap_usuario">Usuário</string>
     <string name="palavra_cap_senha">Senha</string>
     <string name="palavra_cap_entrar">Entrar</string>
@@ -15,4 +16,12 @@
     <string name="frase_insira_sua_resp_perg_seguranca">Insira sua resposta aqui</string>
     <string name="frase_qual_foi_seu_primeiro_animal_estimacao">Qual foi seu primeiro animal de estimação?</string>
     <string name="frase_nenhuma_pergunta_selecionada">Nenhuma pergunta selecionada</string>
+
+    <!-- Traduções de regras de negócio -->
+    <string name="frase_exception_campos_obrigatorios_em_falta">Os seguintes campos obrigatórios estão em falta:</string>
+
+    <!-- Traduções nomenclatura de colunas de entidades -->
+    <!-- -->
+    <string name="frase_usuario_coluna_nome">Nome de Usuário</string>
+    <string name="frase_usuario_coluna_login">Login do Usuário</string>
 </resources>
