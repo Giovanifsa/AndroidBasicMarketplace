@@ -16,12 +16,33 @@
     <string name="frase_insira_sua_resp_perg_seguranca">Insira sua resposta aqui</string>
     <string name="frase_qual_foi_seu_primeiro_animal_estimacao">Qual foi seu primeiro animal de estimação?</string>
     <string name="frase_nenhuma_pergunta_selecionada">Nenhuma pergunta selecionada</string>
+    <string name="frase_salvar_conta">Salvar nova conta</string>
+    <string name="frase_nome_conta">Nomeie sua conta</string>
+    <string name="palavra_alerta">ATENÇÃO</string>
+    <string name="palavra_aceitar_alerta">Prosseguir</string>
+    <string name="frase_preencha_campos_login">Preencha os campos de login e tente novamente.</string>
+    <string name="frase_conta_criada_com_sucesso">Conta cadastrada com sucesso!</string>
 
     <!-- Traduções de regras de negócio -->
     <string name="frase_exception_campos_obrigatorios_em_falta">Os seguintes campos obrigatórios estão em falta:</string>
+    <string name="frase_exception_campos_muito_grandes">Os seguintes campos estão acima do tamanho limite de caracteres:</string>
+
+    <string name="frase_falha_ao_aplicar_algoritmo_assinatura">Não foi possível aplicar o algoritmo de assinatura {0}.</string>
+    <string name="frase_obrigatorio_selecionar_tipo_pergunta_seguranca">É necessário selecionar um tipo de pergunta de segurança.</string>
+    <string name="frase_falha_ao_atualizar_entidade">Não foi possível atualizar a entidade {0}.</string>
+    <string name="frase_falha_ao_salvar_entidade">Não foi possível salvar a entidade {0}.</string>
+    <string name="frase_falha_ao_deletar_entidade">Não foi possível deletar a entidade {0}.</string>
+
+    <string name="frase_falha_ao_conectar_ao_banco_de_dados">Não foi possível iniciar o banco de dados.</string>
 
     <!-- Traduções nomenclatura de colunas de entidades -->
-    <!-- -->
+    <!-- |- Usuário -->
     <string name="frase_usuario_coluna_nome">Nome de Usuário</string>
     <string name="frase_usuario_coluna_login">Login do Usuário</string>
+    <string name="palavra_usuario_coluna_senha">Senha</string>
+    <string name="frase_usuario_tipo_pergunta_seguranca">Tipo de Pergunta de Segurança</string>
+    <string name="frase_usuario_resposta_perg_seguranca">Resposta da Pergunta de Segurança</string>
+
+    <string name="frase_usuario_com_login_ja_existe">Um usuário com o mesmo login já está cadastrado.</string>
+
 </resources>

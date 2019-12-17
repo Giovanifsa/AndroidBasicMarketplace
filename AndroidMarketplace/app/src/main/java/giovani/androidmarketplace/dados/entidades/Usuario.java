@@ -3,7 +3,7 @@ package giovani.androidmarketplace.dados.entidades;
 import giovani.androidmarketplace.dados.constantes.EnumPerguntaSeguranca;
 
 public class Usuario extends AbstractEntidade {
-    public static final String TABELA_USUARIO = Usuario.class.getCanonicalName();
+    public static final String TABELA_USUARIO = "Usuario";
     public static final String COLUNA_IDUSUARIO = "idUsuario";
     public static final String COLUNA_NOME = "nome";
     public static final String COLUNA_LOGIN = "login";

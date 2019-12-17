@@ -1,7 +1,7 @@
 package giovani.androidmarketplace.servico;
 
 import giovani.androidmarketplace.dados.entidades.AbstractEntidade;
-import giovani.androidmarketplace.dados.exceptions.GerenciadorException;
+import giovani.androidmarketplace.exceptions.GerenciadorException;
 
 public interface IGerenciadorCRUD<E extends AbstractEntidade> {
     public E buscar(Integer id);

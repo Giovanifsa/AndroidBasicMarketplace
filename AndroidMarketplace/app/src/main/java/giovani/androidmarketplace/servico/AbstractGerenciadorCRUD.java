@@ -5,8 +5,10 @@ import java.util.List;
 
 import giovani.androidmarketplace.R;
 import giovani.androidmarketplace.dados.entidades.AbstractEntidade;
-import giovani.androidmarketplace.dados.exceptions.GerenciadorException;
+import giovani.androidmarketplace.exceptions.GerenciadorException;
+import giovani.androidmarketplace.utils.StringUtil;
 import giovani.androidmarketplace.utils.containers.Pair;
+import giovani.androidmarketplace.utils.containers.Triplet;
 
 public abstract class AbstractGerenciadorCRUD<E extends AbstractEntidade> implements IGerenciadorCRUD<E> {
     private ContextoAplicacao contextoAplicacao;
@@ -19,7 +21,10 @@ public abstract class AbstractGerenciadorCRUD<E extends AbstractEntidade> implem
         List<String> camposEmFalta = new ArrayList<>();
 
         for (Pair<Integer, Object> campoObrigatorio : camposObrigatorios) {
-            if (campoObrigatorio.getObjetoDireita() == null) {
+            if (campoObrigatorio.getObjetoDireita() == null ||
+                    (campoObrigatorio.getObjetoDireita() instanceof String &&
+                            StringUtil.isBlank((String) campoObrigatorio.getObjetoDireita()))) {
+
                 camposEmFalta.add(getString(campoObrigatorio.getObjetoEsquerda()));
             }
         }
@@ -28,6 +33,26 @@ public abstract class AbstractGerenciadorCRUD<E extends AbstractEntidade> implem
             String mensagem = contextoAplicacao.getString(R.string.frase_exception_campos_obrigatorios_em_falta);
 
             for (String campo : camposEmFalta) {
+                mensagem += "\n" + campo;
+            }
+
+            throw new GerenciadorException(mensagem);
+        }
+    }
+
+    protected void validarTamanhoCampos(Triplet<Integer, String, Integer>... camposStrings) throws GerenciadorException {
+        List<String> camposGrandes = new ArrayList<>();
+
+        for (Triplet<Integer, String, Integer> campoValidando : camposStrings) {
+            if (campoValidando.getObjetoMeio().length() > campoValidando.getObjetoDireita()) {
+                camposGrandes.add(getString(campoValidando.getObjetoEsquerda()));
+            }
+        }
+
+        if (!camposGrandes.isEmpty()) {
+            String mensagem = contextoAplicacao.getString(R.string.frase_exception_campos_muito_grandes);
+
+            for (String campo : camposGrandes) {
                 mensagem += "\n" + campo;
             }
 

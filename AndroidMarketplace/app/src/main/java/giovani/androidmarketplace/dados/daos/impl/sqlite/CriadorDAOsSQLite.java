@@ -2,6 +2,7 @@ package giovani.androidmarketplace.dados.daos.impl.sqlite;
 
 import giovani.androidmarketplace.dados.conectores.impl.ConectorBancoSQLite;
 import giovani.androidmarketplace.dados.daos.ICriadorDAOs;
+import giovani.androidmarketplace.dados.daos.IProdutoDAO;
 import giovani.androidmarketplace.dados.daos.IUsuarioDAO;
 
 public class CriadorDAOsSQLite implements ICriadorDAOs {
@@ -14,5 +15,10 @@ public class CriadorDAOsSQLite implements ICriadorDAOs {
     @Override
     public IUsuarioDAO getUsuarioDAO() {
         return new UsuarioDAOSQLite(conectorSQLite);
+    }
+
+    @Override
+    public IProdutoDAO getProdutoDAO() {
+        return new ProdutoDAOSQLite(conectorSQLite);
     }
 }

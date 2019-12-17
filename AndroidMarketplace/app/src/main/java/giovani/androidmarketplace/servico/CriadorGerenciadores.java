@@ -1,7 +1,7 @@
 package giovani.androidmarketplace.servico;
 
 public class CriadorGerenciadores {
-    private ContextoAplicacao contextoAplicacao;
+    private final ContextoAplicacao contextoAplicacao;
 
     public CriadorGerenciadores(ContextoAplicacao contextoAplicacao) {
         this.contextoAplicacao = contextoAplicacao;
@@ -9,5 +9,9 @@ public class CriadorGerenciadores {
 
     public GerenciadorUsuario getGerenciadorUsuario() {
         return new GerenciadorUsuario(contextoAplicacao);
+    }
+
+    public GerenciadorBancoDados getGerenciadorBancoDados() {
+        return new GerenciadorBancoDados(contextoAplicacao);
     }
 }

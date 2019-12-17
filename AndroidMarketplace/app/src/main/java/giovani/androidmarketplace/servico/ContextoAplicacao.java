@@ -2,23 +2,30 @@ package giovani.androidmarketplace.servico;
 
 import android.content.Context;
 
-import java.util.Optional;
-
+import giovani.androidmarketplace.dados.conectores.DadosConexaoBanco;
 import giovani.androidmarketplace.dados.conectores.EnumGerenciadorBanco;
 import giovani.androidmarketplace.dados.conectores.IConectorBanco;
-import giovani.androidmarketplace.dados.conectores.DadosConexaoBanco;
 import giovani.androidmarketplace.dados.daos.ICriadorDAOs;
 import giovani.androidmarketplace.dados.entidades.Usuario;
+import giovani.androidmarketplace.exceptions.GerenciadorException;
 
 public class ContextoAplicacao {
     private static ContextoAplicacao singletonContexto;
 
     private Context contextoAndroid;
     private Usuario usuarioLogado;
-    private IConectorBanco bancoDadosEmUso;
+    private CriadorGerenciadores criadorGerenciadores;
+    private GerenciadorBancoDados gerenciadorBancoDados;
 
-    public void selecionarBancoDados(EnumGerenciadorBanco bancoDados, Optional<DadosConexaoBanco> optionalDadosConexaoBanco) {
+    private ContextoAplicacao() {
+        criadorGerenciadores = new CriadorGerenciadores(this);
+    }
 
+    public void selecionarBancoDados(EnumGerenciadorBanco bancoDados, DadosConexaoBanco optionalDadosConexaoBanco) throws GerenciadorException {
+        if (gerenciadorBancoDados == null) {
+            gerenciadorBancoDados = getCriadorGerenciadores().getGerenciadorBancoDados();
+            gerenciadorBancoDados.iniciarBancoDados(bancoDados, optionalDadosConexaoBanco);
+        }
     }
 
     public static ContextoAplicacao getContextoAplicacao() {
@@ -41,14 +48,14 @@ public class ContextoAplicacao {
     }
 
     public IConectorBanco getBancoDadosEmUso() {
-        return bancoDadosEmUso;
+        return gerenciadorBancoDados.getConectorBancoDados();
     }
 
     public ICriadorDAOs getCriadorDAOs() {
-        return bancoDadosEmUso.getCriadorDAOs();
+        return gerenciadorBancoDados.getConectorBancoDados().getCriadorDAOs();
     }
 
     public CriadorGerenciadores getCriadorGerenciadores() {
-        return new CriadorGerenciadores(this);
+        return criadorGerenciadores;
     }
 }

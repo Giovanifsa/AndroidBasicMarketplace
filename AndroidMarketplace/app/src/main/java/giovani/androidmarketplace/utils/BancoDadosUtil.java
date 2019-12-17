@@ -1,67 +1,50 @@
 package giovani.androidmarketplace.utils;
 
-import android.net.Uri;
-
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import giovani.androidmarketplace.dados.conectores.EnumGerenciadorBanco;
+import giovani.androidmarketplace.servico.ContextoAplicacao;
 
 public class BancoDadosUtil {
     private BancoDadosUtil() {
 
     }
 
-    public static int getUltimaVersaoMigration(EnumGerenciadorBanco bancoDados) {
-        Uri uriRawResources = Uri.parse("android.resource://giovani.androidmarketplace/raw/");
-        File diretorioRaw = new File(uriRawResources.getPath());
-
-        String regexBuscaMigration = "^V(\\d+)_" + bancoDados.getNomeSGBD() + "_(\\S+).sql$";
-        Pattern patternCompilado = Pattern.compile(regexBuscaMigration);
-
+    public static int getUltimaVersaoMigration(ContextoAplicacao contextoAplicacao, EnumGerenciadorBanco bancoDados) throws FileNotFoundException {
         int ultimaVersaoEncontrado = 0;
+        boolean continuarBusca = true;
 
-        for (File arquivo : diretorioRaw.listFiles()) {
-            if (arquivo.isFile()) {
-                Matcher matcher = patternCompilado.matcher(arquivo.getName());
+        do {
+            int versaoSendoBuscada = ultimaVersaoEncontrado + 1;
 
-                if (matcher.matches()) {
-                    int versaoArquivoProcessado = Integer.valueOf(matcher.group(1));
+            int idResource = contextoAplicacao.getContextoAndroid().getResources().getIdentifier(
+                    prepararNomeArquivoMigration(bancoDados, versaoSendoBuscada), "raw", contextoAplicacao.getContextoAndroid().getPackageName());
 
-                    if (versaoArquivoProcessado > ultimaVersaoEncontrado) {
-                        ultimaVersaoEncontrado = versaoArquivoProcessado;
-                    }
-                }
+            if ((continuarBusca = idResource != 0)) {
+                ultimaVersaoEncontrado = versaoSendoBuscada;
             }
+        } while (continuarBusca);
+
+        if (ultimaVersaoEncontrado == 0) {
+            throw new FileNotFoundException("Nenhuma versão de migration foi encontrada para o SGBD " + bancoDados.getNomeSGBD());
         }
 
         return ultimaVersaoEncontrado;
     }
 
-    public static String getMigrationBancoDadosPorVersao(EnumGerenciadorBanco bancoDados, int versaoMigration) throws IOException {
-        Uri uriRawResources = Uri.parse("android.resource://giovani.androidmarketplace/raw/");
-        File diretorioRaw = new File(uriRawResources.getPath());
+    public static String getMigrationBancoDadosPorVersao(ContextoAplicacao contextoAplicacao, EnumGerenciadorBanco bancoDados, int versaoMigration) throws IOException {
+        int idResource = contextoAplicacao.getContextoAndroid().getResources().getIdentifier(
+                prepararNomeArquivoMigration(bancoDados, versaoMigration), "raw", contextoAplicacao.getContextoAndroid().getPackageName());
 
-        String regexBuscaMigration = "^V(\\d+)_" + bancoDados.getNomeSGBD() + "_(\\S+).sql$";
-        Pattern patternCompilado = Pattern.compile(regexBuscaMigration);
-
-        for (File arquivo : diretorioRaw.listFiles()) {
-            if (arquivo.isFile()) {
-                Matcher matcher = patternCompilado.matcher(arquivo.getName());
-
-                if (matcher.matches()) {
-                    int versaoArquivoProcessado = Integer.valueOf(matcher.group(1));
-
-                    if (versaoArquivoProcessado == versaoMigration) {
-                        return ArquivoUtil.lerConteudoArquivoParaString(arquivo);
-                    }
-                }
-            }
+        if (idResource == 0) {
+            throw new FileNotFoundException("A versão de Migration " + versaoMigration + " não foi encontrada para o SGBD " + bancoDados.getNomeSGBD());
         }
 
-        throw new FileNotFoundException("A versão de Migration " + versaoMigration + " não foi encontrada para o SGBD " + bancoDados.getNomeSGBD());
+        return ArquivoUtil.lerConteudoArquivoParaString(contextoAplicacao, idResource);
+    }
+
+    private static String prepararNomeArquivoMigration(EnumGerenciadorBanco gerenciadorBanco, int versao) {
+        return "v" + versao + "_" + gerenciadorBanco.getNomeSGBD().toLowerCase();
     }
 }

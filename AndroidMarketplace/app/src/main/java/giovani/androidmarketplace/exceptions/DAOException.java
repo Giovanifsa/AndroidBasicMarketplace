@@ -1,4 +1,4 @@
-package giovani.androidmarketplace.dados.exceptions;
+package giovani.androidmarketplace.exceptions;
 
 import giovani.androidmarketplace.utils.StringUtil;
 

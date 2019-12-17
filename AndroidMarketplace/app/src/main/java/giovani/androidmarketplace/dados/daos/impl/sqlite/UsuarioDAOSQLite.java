@@ -8,8 +8,8 @@ import giovani.androidmarketplace.dados.conectores.impl.ConectorBancoSQLite;
 import giovani.androidmarketplace.dados.constantes.EnumPerguntaSeguranca;
 import giovani.androidmarketplace.dados.daos.IUsuarioDAO;
 import giovani.androidmarketplace.dados.entidades.Usuario;
-import giovani.androidmarketplace.dados.exceptions.DAOException;
-import giovani.androidmarketplace.dados.exceptions.EnumExceptionsFixas;
+import giovani.androidmarketplace.exceptions.DAOException;
+import giovani.androidmarketplace.exceptions.EnumExceptionsFixas;
 
 public class UsuarioDAOSQLite extends AbstractDAOSQLite implements IUsuarioDAO {
     public UsuarioDAOSQLite(ConectorBancoSQLite conectorSQLite) {
@@ -116,5 +116,26 @@ public class UsuarioDAOSQLite extends AbstractDAOSQLite implements IUsuarioDAO {
         }
 
         throw new DAOException(EnumExceptionsFixas.DAO_FALHA_AO_ENCONTRAR_ENTIDADE, Usuario.TABELA_USUARIO, id);
+    }
+
+    @Override
+    public Usuario buscarPorLogin(String login) {
+        if (login != null) {
+            SQLiteDatabase database = iniciarLeitura();
+
+            Cursor consulta = database.query(
+                    Usuario.TABELA_USUARIO,
+                    new String[] { Usuario.COLUNA_IDUSUARIO },
+                    Usuario.COLUNA_LOGIN + " = ?",
+                    new String[] { login },
+                    null, null, null
+            );
+
+            if (consulta.moveToFirst()) {
+                return buscar(getInt(consulta, Usuario.COLUNA_IDUSUARIO));
+            }
+        }
+
+        return null;
     }
 }

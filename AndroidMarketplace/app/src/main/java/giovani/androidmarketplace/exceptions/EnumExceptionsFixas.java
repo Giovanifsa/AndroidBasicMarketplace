@@ -1,4 +1,4 @@
-package giovani.androidmarketplace.dados.exceptions;
+package giovani.androidmarketplace.exceptions;
 
 public enum EnumExceptionsFixas {
     DAO_FALHA_ATUALIZAR_ENTIDADE("Houve uma falha ao atualizar a entidade {0} com ID {1}."),

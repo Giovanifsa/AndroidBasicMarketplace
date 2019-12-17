@@ -1,16 +1,19 @@
 package giovani.androidmarketplace.visao;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import giovani.androidmarketplace.R;
+import giovani.androidmarketplace.dados.conectores.EnumGerenciadorBanco;
+import giovani.androidmarketplace.exceptions.GerenciadorException;
+import giovani.androidmarketplace.servico.ContextoAplicacao;
 import giovani.androidmarketplace.utils.ActivityUtil;
+import giovani.androidmarketplace.utils.StringUtil;
 import giovani.androidmarketplace.utils.ToastUtil;
 
 public class LoginActivity extends AppCompatActivity {
@@ -18,6 +21,12 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        try {
+            ContextoAplicacao.iniciarContextoAplicacao(getApplicationContext()).selecionarBancoDados(EnumGerenciadorBanco.SQLite, null);
+        } catch (GerenciadorException e) {
+            ActivityUtil.exibirDialogMensagem(this, R.string.palavra_alerta, e.getMessage(), R.string.palavra_aceitar_alerta);
+        }
 
         prepararListeners();
     }
@@ -46,7 +55,19 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void onClickEntrar(Button button) {
-        ToastUtil.printShort(this, "Teste");
+        realizarLogin();
+    }
+
+    private void realizarLogin() {
+        EditText campoUsuario = findViewById(R.id.campoUsuarioEditText);
+        EditText campoSenha = findViewById(R.id.campoSenhaEditText);
+
+        String usuario = campoUsuario.getText().toString();
+        String senha = campoSenha.getText().toString();
+
+        if (StringUtil.isBlank(usuario) || StringUtil.isBlank(senha)) {
+            ToastUtil.printShort(this, R.string.frase_preencha_campos_login);
+        }
     }
 
     private void onClickSenhaEsquecida(TextView textView) {
