@@ -1,6 +1,7 @@
 package giovani.androidmarketplace.servico;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 
 import giovani.androidmarketplace.R;
 import giovani.androidmarketplace.dados.constantes.EnumPerguntaSeguranca;
@@ -78,8 +79,28 @@ public class GerenciadorUsuario extends AbstractGerenciadorCRUD<Usuario> {
         }
     }
 
+    public Usuario realizarLogin(String login, String senha) throws GerenciadorException {
+        try {
+            Usuario usuarioEncontrado = getDAO().buscarPorLogin(login);
+
+            if (usuarioEncontrado != null) {
+                String senhaHasheada = new String(HashUtil.aplicarMD5(senha.getBytes()));
+
+                if (usuarioEncontrado.getSenha().equals(senhaHasheada)) {
+                    return usuarioEncontrado;
+                }
+            }
+        } catch (NoSuchAlgorithmException ex) {
+            throw new GerenciadorException(getString(R.string.frase_falha_ao_fazer_login));
+        }
+
+        throw new GerenciadorException(getString(R.string.frase_login_usuario_nao_encontrado), login);
+    }
+
     private Usuario copiarUsuario(Usuario entidade) {
         Usuario usuario = new Usuario();
+
+        usuario.setIdUsuario(entidade.getIdUsuario());
         usuario.setNome(entidade.getNome());
         usuario.setLogin(entidade.getLogin());
         usuario.setNumeroPerguntaSeguranca(entidade.getNumeroPerguntaSeguranca());
@@ -130,7 +151,7 @@ public class GerenciadorUsuario extends AbstractGerenciadorCRUD<Usuario> {
                 Pair.from(R.string.frase_usuario_resposta_perg_seguranca, (Object) entidade.getRespostaPerguntaSeguranca()));
     }
 
-    private IUsuarioDAO getDAO() {
+    public IUsuarioDAO getDAO() {
         return getContextoAplicacao().getCriadorDAOs().getUsuarioDAO();
     }
 }

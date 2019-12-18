@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 
 public class ActivityUtil {
     private ActivityUtil() {
@@ -12,6 +13,13 @@ public class ActivityUtil {
 
     public static void iniciarActivity(Activity activityPai, Class<?> classeNovaActivity) {
         Intent intentNovaActivity = new Intent(activityPai, classeNovaActivity);
+
+        activityPai.startActivity(intentNovaActivity);
+    }
+
+    public static void iniciarActivity(Activity activityPai, Class<?> classeNovaActivity, Bundle extras) {
+        Intent intentNovaActivity = new Intent(activityPai, classeNovaActivity);
+        intentNovaActivity.putExtras(extras);
 
         activityPai.startActivity(intentNovaActivity);
     }

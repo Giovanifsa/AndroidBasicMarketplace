@@ -2,6 +2,7 @@ package giovani.androidmarketplace.visao;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -67,6 +68,18 @@ public class LoginActivity extends AppCompatActivity {
 
         if (StringUtil.isBlank(usuario) || StringUtil.isBlank(senha)) {
             ToastUtil.printShort(this, R.string.frase_preencha_campos_login);
+        }
+
+        else {
+            try {
+                ContextoAplicacao.getContextoAplicacao().realizarLogin(usuario, senha);
+
+                ToastUtil.printShort(this, R.string.frase_sessao_iniciada_com_sucesso);
+
+                ActivityUtil.iniciarActivityRaiz(this, PrincipalActivity.class);
+            } catch (GerenciadorException ex) {
+                ActivityUtil.exibirDialogMensagem(this, R.string.palavra_alerta, ex.getMessage(), R.string.palavra_aceitar_alerta);
+            }
         }
     }
 

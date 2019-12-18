@@ -20,13 +20,7 @@ public class UsuarioDAOSQLite extends AbstractDAOSQLite implements IUsuarioDAO {
     public Usuario salvar(Usuario entidade) throws DAOException {
         SQLiteDatabase database = iniciarEscrita();
 
-        ContentValues valoresInsercao = new ContentValues();
-        valoresInsercao.put(Usuario.COLUNA_NOME, entidade.getNome());
-        valoresInsercao.put(Usuario.COLUNA_LOGIN, entidade.getLogin());
-        valoresInsercao.put(Usuario.COLUNA_SENHA, entidade.getSenha());
-        valoresInsercao.put(Usuario.COLUNA_NUMEROPERGUNTASEGURANCA, entidade.getNumeroPerguntaSeguranca().ordinal());
-        valoresInsercao.put(Usuario.COLUNA_RESPOSTAPERGUNTASEGURANCA, entidade.getRespostaPerguntaSeguranca());
-
+        ContentValues valoresInsercao = gerarConteudoInsertParaUsuario(entidade);
         long idInsercao = database.insert(Usuario.TABELA_USUARIO, null, valoresInsercao);
 
         if (idInsercao == -1) {
@@ -82,12 +76,7 @@ public class UsuarioDAOSQLite extends AbstractDAOSQLite implements IUsuarioDAO {
         if (entidade.getId() != null && buscar(entidade.getId()) != null) {
             SQLiteDatabase database = iniciarEscrita();
 
-            ContentValues valoresAtualizacao = new ContentValues();
-            valoresAtualizacao.put(Usuario.COLUNA_NOME, entidade.getNome());
-            valoresAtualizacao.put(Usuario.COLUNA_LOGIN, entidade.getLogin());
-            valoresAtualizacao.put(Usuario.COLUNA_SENHA, entidade.getSenha());
-            valoresAtualizacao.put(Usuario.COLUNA_RESPOSTAPERGUNTASEGURANCA, entidade.getRespostaPerguntaSeguranca());
-            valoresAtualizacao.put(Usuario.COLUNA_NUMEROPERGUNTASEGURANCA, entidade.getNumeroPerguntaSeguranca().ordinal());
+            ContentValues valoresAtualizacao = gerarConteudoInsertParaUsuario(entidade);
 
             if (database.update(Usuario.TABELA_USUARIO, valoresAtualizacao,
                     Usuario.COLUNA_IDUSUARIO + " = ?", new String[] {entidade.getId().toString()}) == 0) {
@@ -108,7 +97,7 @@ public class UsuarioDAOSQLite extends AbstractDAOSQLite implements IUsuarioDAO {
             SQLiteDatabase database = iniciarEscrita();
 
             if (database.delete(Usuario.TABELA_USUARIO, Usuario.COLUNA_IDUSUARIO + " = ?",
-                    new String[] {id.toString()}) == 0) {
+                                                                new String[] {id.toString()}) == 0) {
                 finalizarTransacao(database, false);
 
                 throw new DAOException(EnumExceptionsFixas.DAO_FALHA_AO_EXCLUIR_ENTIDADE, Usuario.TABELA_USUARIO, id);
@@ -137,5 +126,17 @@ public class UsuarioDAOSQLite extends AbstractDAOSQLite implements IUsuarioDAO {
         }
 
         return null;
+    }
+
+    private ContentValues gerarConteudoInsertParaUsuario(Usuario entidade) {
+        ContentValues conteudoInsert = new ContentValues();
+
+        conteudoInsert.put(Usuario.COLUNA_NOME, entidade.getNome());
+        conteudoInsert.put(Usuario.COLUNA_LOGIN, entidade.getLogin());
+        conteudoInsert.put(Usuario.COLUNA_SENHA, entidade.getSenha());
+        conteudoInsert.put(Usuario.COLUNA_NUMEROPERGUNTASEGURANCA, entidade.getNumeroPerguntaSeguranca().ordinal());
+        conteudoInsert.put(Usuario.COLUNA_RESPOSTAPERGUNTASEGURANCA, entidade.getRespostaPerguntaSeguranca());
+
+        return conteudoInsert;
     }
 }

@@ -28,6 +28,10 @@ public class ContextoAplicacao {
         }
     }
 
+    public void realizarLogin(String login, String senha) throws GerenciadorException {
+        usuarioLogado = getCriadorGerenciadores().getGerenciadorUsuario().realizarLogin(login, senha);
+    }
+
     public static ContextoAplicacao getContextoAplicacao() {
         return singletonContexto;
     }

@@ -9,7 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".visao.CriarContaActivity"></activity>
+        <activity android:name=".visao.PrincipalActivity"></activity>
+        <activity android:name=".visao.EdicaoProdutoActivity" />
+        <activity
+            android:name=".visao.ListagemProdutosActivity"
+            android:label="@string/title_activity_listagem_produtos"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".visao.CriarContaActivity" />
         <activity android:name=".visao.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

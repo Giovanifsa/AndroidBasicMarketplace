@@ -1,5 +1,7 @@
 package giovani.androidmarketplace.dados.entidades;
 
+import java.math.BigDecimal;
+
 public class Produto extends AbstractEntidade {
     public static final String TABELA_PRODUTO = "Produto";
     public static final String COLUNA_IDPRODUTO = "idProduto";
@@ -8,7 +10,7 @@ public class Produto extends AbstractEntidade {
 
     private Integer idProduto;
     private String descricao;
-    private String preco;
+    private BigDecimal preco;
 
     public Integer getIdProduto() {
         return idProduto;
@@ -23,7 +25,7 @@ public class Produto extends AbstractEntidade {
         return descricao;
     }
 
-    public String getPreco() {
+    public BigDecimal getPreco() {
         return preco;
     }
 
@@ -35,7 +37,7 @@ public class Produto extends AbstractEntidade {
         this.idProduto = idProduto;
     }
 
-    public void setPreco(String preco) {
+    public void setPreco(BigDecimal preco) {
         this.preco = preco;
     }
 }

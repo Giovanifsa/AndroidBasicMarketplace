@@ -31,10 +31,12 @@ public class ConectorBancoSQLite extends SQLiteOpenHelper implements IConectorBa
         try {
             db.beginTransaction();
 
-            String conteudoMigration = BancoDadosUtil.getMigrationBancoDadosPorVersao(contextoAplicacao, EnumGerenciadorBanco.SQLite, 1);
-            db.execSQL(conteudoMigration);
+            for (int versao = 1; versao <= 4; versao++) {
+                String conteudoMigration = BancoDadosUtil.getMigrationBancoDadosPorVersao(contextoAplicacao, EnumGerenciadorBanco.SQLite, versao);
+                db.execSQL(conteudoMigration);
 
-            Logger.info(this, "Aplicado Migration inicial com sucesso.");
+                Logger.info(this, "Aplicado Migration {0} com sucesso.", versao);
+            }
 
             db.setTransactionSuccessful();
         } catch (IOException ex) {

@@ -14,4 +14,8 @@ public class CriadorGerenciadores {
     public GerenciadorBancoDados getGerenciadorBancoDados() {
         return new GerenciadorBancoDados(contextoAplicacao);
     }
+
+    public GerenciadorProduto getGerenciadorProduto() {
+        return new GerenciadorProduto(contextoAplicacao);
+    }
 }

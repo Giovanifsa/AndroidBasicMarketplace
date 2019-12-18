@@ -22,6 +22,18 @@
     <string name="palavra_aceitar_alerta">Prosseguir</string>
     <string name="frase_preencha_campos_login">Preencha os campos de login e tente novamente.</string>
     <string name="frase_conta_criada_com_sucesso">Conta cadastrada com sucesso!</string>
+    <string name="frase_sessao_iniciada_com_sucesso">Sessão iniciada com sucesso!</string>
+    <string name="palavra_principal">Principal</string>
+    <string name="frase_exibir_produtos">Exibir produtos</string>
+    <string name="frase_exibir_pedidos">Exibir pedidos</string>
+    <string name="frase_novo_produto">Novo Produto</string>
+    <string name="frase_cadastro_produto">Cadastro de produto</string>
+    <string name="frase_nome_produto">Nome do Produto</string>
+    <string name="frase_descricao_produto">Descrição do Produto</string>
+    <string name="frase_preco_produto">Preço do Produto</string>
+    <string name="frase_salvar_produto">Salvar Produto</string>
+    <string name="frase_alteracoes_salvas">As alterações foram salvas</string>
+    <string name="frase_listagem_produtos">Listagem de Produtos</string>
 
     <!-- Traduções de regras de negócio -->
     <string name="frase_exception_campos_obrigatorios_em_falta">Os seguintes campos obrigatórios estão em falta:</string>
@@ -34,6 +46,7 @@
     <string name="frase_falha_ao_deletar_entidade">Não foi possível deletar a entidade {0}.</string>
 
     <string name="frase_falha_ao_conectar_ao_banco_de_dados">Não foi possível iniciar o banco de dados.</string>
+    <string name="frase_falha_ao_fazer_login">Houve uma falha na tentativa de realização de login.</string>
 
     <!-- Traduções nomenclatura de colunas de entidades -->
     <!-- |- Usuário -->
@@ -44,5 +57,13 @@
     <string name="frase_usuario_resposta_perg_seguranca">Resposta da Pergunta de Segurança</string>
 
     <string name="frase_usuario_com_login_ja_existe">Um usuário com o mesmo login já está cadastrado.</string>
+    <string name="frase_login_usuario_nao_encontrado">O usuário {0} não foi encontrado.</string>
+
+    <!-- |- Produto -->
+    <string name="palavra_produto_coluna_descricao">Descrição</string>
+    <string name="palavra_produto_coluna_preco">Preço</string>
+
+    <string name="frase_impossivel_cadastrar_produtos_sem_preco">Não é possível cadastrar um produto sem um preço.</string>
+    <string name="title_activity_listagem_produtos">Listagem de Produtos</string>
 
 </resources>

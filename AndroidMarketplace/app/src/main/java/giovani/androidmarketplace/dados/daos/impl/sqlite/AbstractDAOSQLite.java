@@ -43,6 +43,10 @@ public abstract class AbstractDAOSQLite {
         return consulta.getLong(consulta.getColumnIndex(nomeColuna));
     }
 
+    public double getDouble(Cursor consulta, String nomeColuna) {
+        return consulta.getDouble(consulta.getColumnIndex(nomeColuna));
+    }
+
     public ConectorBancoSQLite getConectorSQLite() {
         return conectorSQLite;
     }
