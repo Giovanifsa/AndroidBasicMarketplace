@@ -1,12 +1,11 @@
 package giovani.androidmarketplace.visao;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.math.BigDecimal;
 
@@ -16,6 +15,7 @@ import giovani.androidmarketplace.exceptions.GerenciadorException;
 import giovani.androidmarketplace.servico.ContextoAplicacao;
 import giovani.androidmarketplace.servico.GerenciadorProduto;
 import giovani.androidmarketplace.utils.ActivityUtil;
+import giovani.androidmarketplace.utils.DecimalUtil;
 import giovani.androidmarketplace.utils.ToastUtil;
 
 public class EdicaoProdutoActivity extends AppCompatActivity {
@@ -26,8 +26,8 @@ public class EdicaoProdutoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edicao_produto);
 
-        prepararListeners();
         lerDadosPilhaActivies();
+        prepararListeners();
     }
 
     private void prepararListeners() {
@@ -47,6 +47,7 @@ public class EdicaoProdutoActivity extends AppCompatActivity {
         String precoProduto = campoPrecoProduto.getText().toString();
 
         Produto produto = new Produto();
+        produto.setIdProduto(idProdutoSendoEditado);
         produto.setDescricao(descricaoProduto);
         produto.setPreco(new BigDecimal(precoProduto));
 
@@ -66,20 +67,18 @@ public class EdicaoProdutoActivity extends AppCompatActivity {
     private void lerDadosPilhaActivies() {
         Bundle dadosRecebidos = getIntent().getExtras();
 
-        if (dadosRecebidos != null) {
-            if (dadosRecebidos.containsKey(Produto.COLUNA_IDPRODUTO)) {
-                int idProduto = dadosRecebidos.getInt(Produto.COLUNA_IDPRODUTO);
-                Produto produto = ContextoAplicacao.getContextoAplicacao().getCriadorGerenciadores().getGerenciadorProduto().buscar(idProduto);
+        if (dadosRecebidos != null && dadosRecebidos.containsKey(Produto.COLUNA_IDPRODUTO)) {
+            int idProduto = dadosRecebidos.getInt(Produto.COLUNA_IDPRODUTO);
+            Produto produto = ContextoAplicacao.getContextoAplicacao().getCriadorGerenciadores().getGerenciadorProduto().buscar(idProduto);
 
-                if (produto != null) {
-                    EditText campoDescricaoProduto = findViewById(R.id.descricaoProdutoEditText);
-                    EditText campoPrecoProduto = findViewById(R.id.precoProdutoEditText);
+            if (produto != null) {
+                EditText campoDescricaoProduto = findViewById(R.id.descricaoProdutoEditText);
+                EditText campoPrecoProduto = findViewById(R.id.precoProdutoEditText);
 
-                    campoDescricaoProduto.setText(produto.getDescricao());
-                    campoPrecoProduto.setText(produto.getPreco().toPlainString());
+                campoDescricaoProduto.setText(produto.getDescricao());
+                campoPrecoProduto.setText(DecimalUtil.formatarDuasCasasDecimais(produto.getPreco()));
 
-                    idProdutoSendoEditado = produto.getId();
-                }
+                idProdutoSendoEditado = produto.getId();
             }
         }
     }

@@ -9,7 +9,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".visao.PrincipalActivity"></activity>
+        <activity
+            android:name=".visao.ListagemItemPedidoActivity"
+            android:label="@string/title_activity_listagem_produto_pedido"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".visao.EdicaoPedidoActivity" />
+        <activity
+            android:name=".visao.ListagemPedidosActivity"
+            android:label="@string/title_activity_listagem_pedidos"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".visao.PrincipalActivity" />
         <activity android:name=".visao.EdicaoProdutoActivity" />
         <activity
             android:name=".visao.ListagemProdutosActivity"

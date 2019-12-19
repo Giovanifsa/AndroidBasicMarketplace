@@ -34,6 +34,25 @@
     <string name="frase_salvar_produto">Salvar Produto</string>
     <string name="frase_alteracoes_salvas">As alterações foram salvas</string>
     <string name="frase_listagem_produtos">Listagem de Produtos</string>
+    <string name="frase_listagem_pedidos">Listagem de Pedidos</string>
+    <string name="frase_cadastro_pedido">Cadastro de Pedido</string>
+    <string name="frase_nome_cliente">Nome do cliente</string>
+    <string name="frase_endereco_cliente">Endereço do cliente</string>
+    <string name="frase_itens_pedido">Visualizar itens do pedido</string>
+    <string name="frase_salvar_pedido">Salvar pedido</string>
+    <string name="frase_pedido_selecionado">Pedido: {0}</string>
+    <string name="frase_produto_selecionado">Produto: {0}</string>
+    <string name="palavra_visualizar">Visualizar</string>
+    <string name="palavra_remover">Remover</string>
+    <string name="frase_produtos_pedido">Produtos do Pedido</string>
+    <string name="frase_selecione_um_produto">Selecione um produto</string>
+    <string name="palavra_quantidade">Quantidade</string>
+    <string name="frase_preco_original">Preço Original</string>
+    <string name="frase_preco_venda">Preço de Venda</string>
+    <string name="frase_valor_desconto">Valor de Desconto</string>
+    <string name="frase_total_item">Total do Item</string>
+    <string name="palavra_salvar">Salvar</string>
+    <string name="palavra_cancelar">Cancelar</string>
 
     <!-- Traduções de regras de negócio -->
     <string name="frase_exception_campos_obrigatorios_em_falta">Os seguintes campos obrigatórios estão em falta:</string>
@@ -65,5 +84,7 @@
 
     <string name="frase_impossivel_cadastrar_produtos_sem_preco">Não é possível cadastrar um produto sem um preço.</string>
     <string name="title_activity_listagem_produtos">Listagem de Produtos</string>
+    <string name="title_activity_listagem_pedidos">ListagemPedidosActivity</string>
+    <string name="title_activity_listagem_produto_pedido">ListagemProdutoPedidoActivity</string>
 
 </resources>

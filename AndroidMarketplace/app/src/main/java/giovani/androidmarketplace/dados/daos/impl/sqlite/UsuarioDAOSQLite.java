@@ -88,7 +88,9 @@ public class UsuarioDAOSQLite extends AbstractDAOSQLite implements IUsuarioDAO {
             finalizarTransacao(database, true);
         }
 
-        throw new DAOException(EnumExceptionsFixas.DAO_FALHA_AO_ENCONTRAR_ENTIDADE, Usuario.TABELA_USUARIO, entidade.getId());
+        else {
+            throw new DAOException(EnumExceptionsFixas.DAO_FALHA_AO_ENCONTRAR_ENTIDADE, Usuario.TABELA_USUARIO, entidade.getId());
+        }
     }
 
     @Override
@@ -102,9 +104,13 @@ public class UsuarioDAOSQLite extends AbstractDAOSQLite implements IUsuarioDAO {
 
                 throw new DAOException(EnumExceptionsFixas.DAO_FALHA_AO_EXCLUIR_ENTIDADE, Usuario.TABELA_USUARIO, id);
             }
+
+            finalizarTransacao(database, true);
         }
 
-        throw new DAOException(EnumExceptionsFixas.DAO_FALHA_AO_ENCONTRAR_ENTIDADE, Usuario.TABELA_USUARIO, id);
+        else {
+            throw new DAOException(EnumExceptionsFixas.DAO_FALHA_AO_ENCONTRAR_ENTIDADE, Usuario.TABELA_USUARIO, id);
+        }
     }
 
     @Override

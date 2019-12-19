@@ -62,4 +62,8 @@ public class ContextoAplicacao {
     public CriadorGerenciadores getCriadorGerenciadores() {
         return criadorGerenciadores;
     }
+
+    public Usuario getUsuarioLogado() {
+        return usuarioLogado;
+    }
 }

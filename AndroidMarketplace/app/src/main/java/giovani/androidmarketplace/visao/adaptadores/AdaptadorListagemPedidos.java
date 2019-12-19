@@ -15,55 +15,55 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import giovani.androidmarketplace.R;
-import giovani.androidmarketplace.dados.entidades.Produto;
+import giovani.androidmarketplace.dados.entidades.Pedido;
 import giovani.androidmarketplace.utils.ActivityUtil;
 import giovani.androidmarketplace.utils.StringUtil;
 import giovani.androidmarketplace.utils.modelos.IListenerProcesso;
-import giovani.androidmarketplace.visao.EdicaoProdutoActivity;
+import giovani.androidmarketplace.visao.EdicaoPedidoActivity;
 
-public class AdaptadorListagemProdutos extends RecyclerView.Adapter<AdaptadorListagemProdutos.AdaptadorListagemProdutosViewHolder> {
+public class AdaptadorListagemPedidos extends RecyclerView.Adapter<AdaptadorListagemPedidos.AdaptadorListagemPedidosViewHolder> {
     private Activity activityDona;
-    private List<Produto> listaProdutos;
-    private IListenerProcesso<Produto> listenerRemocaoProduto;
+    private List<Pedido> listaPedidos;
+    private IListenerProcesso<Pedido> listenerRemocaoPedido;
 
-    public AdaptadorListagemProdutos(Activity activityDona, List<Produto> listaProdutos, IListenerProcesso<Produto> listenerRemocaoProduto) {
+    public AdaptadorListagemPedidos(Activity activityDona, List<Pedido> listaPedidos, IListenerProcesso<Pedido> listenerRemocaoPedido) {
         this.activityDona = activityDona;
-        this.listaProdutos = listaProdutos;
-        this.listenerRemocaoProduto = listenerRemocaoProduto;
+        this.listaPedidos = listaPedidos;
+        this.listenerRemocaoPedido = listenerRemocaoPedido;
     }
 
     @NonNull
     @Override
-    public AdaptadorListagemProdutosViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public AdaptadorListagemPedidosViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         TextView v = (TextView) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.textview_adaptador_listagens, parent, false);
 
-        return new AdaptadorListagemProdutosViewHolder(v, activityDona, listenerRemocaoProduto);
+        return new AdaptadorListagemPedidosViewHolder(v, activityDona, listenerRemocaoPedido);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AdaptadorListagemProdutosViewHolder holder, int position) {
-        holder.setDados(listaProdutos.get(position));
+    public void onBindViewHolder(@NonNull AdaptadorListagemPedidosViewHolder holder, int position) {
+        holder.setDados(listaPedidos.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return listaProdutos.size();
+        return listaPedidos.size();
     }
 
-    public static class AdaptadorListagemProdutosViewHolder extends RecyclerView.ViewHolder {
+    public static class AdaptadorListagemPedidosViewHolder extends RecyclerView.ViewHolder {
         private Activity activityDona;
-        private IListenerProcesso<Produto> listenerRemocaoProduto;
+        private IListenerProcesso<Pedido> listenerRemocaoPedido;
 
         private TextView textView;
-        private Produto produto;
+        private Pedido pedido;
 
-        public AdaptadorListagemProdutosViewHolder(TextView textView, Activity activityDona, IListenerProcesso<Produto> listenerRemocaoProduto) {
+        public AdaptadorListagemPedidosViewHolder(TextView textView, Activity activityDona, IListenerProcesso<Pedido> listenerRemocaoPedido) {
             super(textView);
 
             this.activityDona = activityDona;
             this.textView = textView;
-            this.listenerRemocaoProduto = listenerRemocaoProduto;
+            this.listenerRemocaoPedido = listenerRemocaoPedido;
 
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -73,16 +73,17 @@ public class AdaptadorListagemProdutos extends RecyclerView.Adapter<AdaptadorLis
             });
         }
 
-        public void setDados(Produto produto) {
-            this.produto = produto;
-            textView.setText(produto.getDescricao());
+        public void setDados(Pedido pedido) {
+            this.pedido = pedido;
+            textView.setText(pedido.getCliente() + " - " + pedido.getValorTotal().toPlainString());
         }
 
         private void onClickItemListagem(TextView textView) {
             AlertDialog.Builder builder = new AlertDialog.Builder(activityDona);
 
             String textoTitulo =
-                    StringUtil.formatMensagem(activityDona.getString(R.string.frase_produto_selecionado), produto.getDescricao());
+                    StringUtil.formatMensagem(activityDona.getString(R.string.frase_pedido_selecionado),
+                                pedido.getCliente() + " - " + pedido.getValorTotal().toPlainString());
 
             builder.setTitle(textoTitulo);
 
@@ -93,16 +94,16 @@ public class AdaptadorListagemProdutos extends RecyclerView.Adapter<AdaptadorLis
                         public void onClick(DialogInterface dialog, int position) {
                             switch (position) {
                                 case 0: {
-                                    listenerRemocaoProduto.processarDado(produto);
+                                    listenerRemocaoPedido.processarDado(pedido);
 
                                     break;
                                 }
 
                                 default: {
-                                    Bundle dadosProduto = new Bundle();
-                                    dadosProduto.putInt(Produto.COLUNA_IDPRODUTO, produto.getId());
+                                    Bundle dadosPedido = new Bundle();
+                                    dadosPedido.putInt(Pedido.COLUNA_IDPEDIDO, pedido.getId());
 
-                                    ActivityUtil.iniciarActivity(activityDona, EdicaoProdutoActivity.class, dadosProduto);
+                                    ActivityUtil.iniciarActivity(activityDona, EdicaoPedidoActivity.class, dadosPedido);
 
                                     break;
                                 }

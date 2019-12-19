@@ -18,4 +18,12 @@ public class CriadorGerenciadores {
     public GerenciadorProduto getGerenciadorProduto() {
         return new GerenciadorProduto(contextoAplicacao);
     }
+
+    public GerenciadorPedido getGerenciadorPedido() {
+        return new GerenciadorPedido(contextoAplicacao);
+    }
+
+    public GerenciadorPedidoItem getGerenciadorPedidoItem() {
+        return new GerenciadorPedidoItem(contextoAplicacao);
+    }
 }

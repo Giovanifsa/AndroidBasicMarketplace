@@ -2,14 +2,19 @@ package giovani.androidmarketplace.visao;
 
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.List;
+
 import giovani.androidmarketplace.R;
+import giovani.androidmarketplace.dados.entidades.Produto;
+import giovani.androidmarketplace.exceptions.GerenciadorException;
+import giovani.androidmarketplace.servico.ContextoAplicacao;
 import giovani.androidmarketplace.utils.ActivityUtil;
+import giovani.androidmarketplace.utils.modelos.IListenerProcesso;
 import giovani.androidmarketplace.visao.adaptadores.AdaptadorListagemProdutos;
 
 public class ListagemProdutosActivity extends AppCompatActivity {
@@ -38,6 +43,13 @@ public class ListagemProdutosActivity extends AppCompatActivity {
                 onClickNovoProduto(v);
             }
         });
+
+        findViewById(R.id.reloadFloatingActionButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listarProdutos();
+            }
+        });
     }
 
     private void onClickNovoProduto(View v) {
@@ -45,8 +57,21 @@ public class ListagemProdutosActivity extends AppCompatActivity {
     }
 
     private void listarProdutos() {
+        List<Produto> listaProdutos = ContextoAplicacao.getContextoAplicacao().getCriadorDAOs().getProdutoDAO().getAllProdutos();
+
         RecyclerView recyclerView = findViewById(R.id.listagemProdutosRecyclerView);
-        recyclerView.setAdapter(new AdaptadorListagemProdutos(this));
+
+        recyclerView.setAdapter(new AdaptadorListagemProdutos(this, listaProdutos, new IListenerProcesso<Produto>() {
+            @Override
+            public void processarDado(Produto dado) {
+                try {
+                    ContextoAplicacao.getContextoAplicacao().getCriadorGerenciadores().getGerenciadorProduto().deletar(dado.getId());
+                    listarProdutos();
+                } catch (GerenciadorException e) {
+                    e.printStackTrace();
+                }
+            }
+        }));
     }
 }
 

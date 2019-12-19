@@ -27,9 +27,20 @@ public class PrincipalActivity extends AppCompatActivity {
                 onClickExibirProdutos((ImageView) v);
             }
         });
+
+        findViewById(R.id.exibirPedidosImageView).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickExibirPedidos((ImageView) v);
+            }
+        });
     }
 
     private void onClickExibirProdutos(ImageView imageView) {
         ActivityUtil.iniciarActivity(this, ListagemProdutosActivity.class);
+    }
+
+    private void onClickExibirPedidos(ImageView imageView) {
+        ActivityUtil.iniciarActivity(this, ListagemPedidosActivity.class);
     }
 }

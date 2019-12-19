@@ -84,7 +84,9 @@ public class ProdutoDAOSQLite extends AbstractDAOSQLite implements IProdutoDAO {
             finalizarTransacao(database, true);
         }
 
-        throw new DAOException(EnumExceptionsFixas.DAO_FALHA_AO_ENCONTRAR_ENTIDADE, Produto.TABELA_PRODUTO, entidade.getId());
+        else {
+            throw new DAOException(EnumExceptionsFixas.DAO_FALHA_AO_ENCONTRAR_ENTIDADE, Produto.TABELA_PRODUTO, entidade.getId());
+        }
     }
 
     @Override
@@ -98,9 +100,13 @@ public class ProdutoDAOSQLite extends AbstractDAOSQLite implements IProdutoDAO {
 
                 throw new DAOException(EnumExceptionsFixas.DAO_FALHA_AO_EXCLUIR_ENTIDADE, Produto.TABELA_PRODUTO, id);
             }
+
+            finalizarTransacao(database, true);
         }
 
-        throw new DAOException(EnumExceptionsFixas.DAO_FALHA_AO_ENCONTRAR_ENTIDADE, Produto.TABELA_PRODUTO, id);
+        else {
+            throw new DAOException(EnumExceptionsFixas.DAO_FALHA_AO_ENCONTRAR_ENTIDADE, Produto.TABELA_PRODUTO, id);
+        }
     }
 
     private ContentValues gerarConteudoInsertParaProduto(Produto entidade) {

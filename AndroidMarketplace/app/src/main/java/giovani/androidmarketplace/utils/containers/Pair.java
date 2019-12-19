@@ -2,7 +2,9 @@ package giovani.androidmarketplace.utils.containers;
 
 import androidx.annotation.Nullable;
 
-public class Pair<E, D> {
+import java.io.Serializable;
+
+public class Pair<E, D> implements Serializable {
     private E objetoEsquerda;
     private D objetoDireita;
 

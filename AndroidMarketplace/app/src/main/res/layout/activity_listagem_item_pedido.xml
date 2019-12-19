@@ -5,10 +5,10 @@
     android:id="@+id/ConstraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".visao.ListagemProdutosActivity">
+    tools:context=".visao.ListagemItemPedidoActivity">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/novoFloatingActionButton"
+        android:id="@+id/inserirProdutoPedidoFAB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -18,39 +18,26 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@android:drawable/ic_input_add" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/reloadFloatingActionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="88dp"
-        android:layout_marginBottom="16dp"
-        app:backgroundTint="#9C27B0"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_rotate" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/listagemProdutosRecyclerView"
-        android:layout_width="365dp"
-        android:layout_height="538dp"
-        app:layout_constraintBottom_toTopOf="@+id/novoFloatingActionButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.489"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listagemProdutosTextView"
-        app:layout_constraintVertical_bias="0.333" />
-
     <TextView
-        android:id="@+id/listagemProdutosTextView"
+        android:id="@+id/produtosPedidoTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/frase_listagem_produtos"
+        android:text="@string/frase_produtos_pedido"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.202"
+        app:layout_constraintHorizontal_bias="0.141"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.023" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/itemPedidoRecyclerView"
+        android:layout_width="339dp"
+        android:layout_height="557dp"
+        app:layout_constraintBottom_toTopOf="@+id/inserirProdutoPedidoFAB"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/produtosPedidoTextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
