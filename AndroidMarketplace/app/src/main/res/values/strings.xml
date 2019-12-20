@@ -66,6 +66,7 @@
 
     <string name="frase_falha_ao_conectar_ao_banco_de_dados">Não foi possível iniciar o banco de dados.</string>
     <string name="frase_falha_ao_fazer_login">Houve uma falha na tentativa de realização de login.</string>
+    <string name="frase_operacao_requer_usuario_logado">É necessário realizar login para essa operação.</string>
 
     <!-- Traduções nomenclatura de colunas de entidades -->
     <!-- |- Usuário -->
@@ -81,8 +82,28 @@
     <!-- |- Produto -->
     <string name="palavra_produto_coluna_descricao">Descrição</string>
     <string name="palavra_produto_coluna_preco">Preço</string>
-
     <string name="frase_impossivel_cadastrar_produtos_sem_preco">Não é possível cadastrar um produto sem um preço.</string>
+    
+    <!-- |- Pedido -->
+    <string name="frase_pedido_coluna_idusuario">Usuário do Pedido</string>
+    <string name="frase_pedido_coluna_cliente">Nome do Cliente do Pedido</string>
+    <string name="frase_pedido_coluna_endereco">Endereço do Pedido</string>
+    <string name="frase_pedido_coluna_data_pedido">Data do Pedido</string>
+    <string name="frase_pedido_coluna_total_itens">Total de Itens</string>
+    <string name="frase_pedido_coluna_total_produtos">Total de Produtos</string>
+    <string name="frase_pedido_coluna_valor_total">Valor Total do Pedido</string>
+
+    <string name="frase_pedido_nao_encontrado">O Pedido não foi encontrado no sistema.</string>
+    
+    <!-- |- PedidoItem -->
+    <string name="frase_pedido_item_coluna_idproduto">Produto do Item</string>
+    <string name="frase_pedido_item_coluna_idpedido">Pedido do Item</string>
+    <string name="frase_pedido_item_coluna_quantidade">Quantidade de Itens</string>
+    <string name="frase_pedido_item_coluna_preco_venda">Preço de Venda</string>
+    <string name="frase_pedido_item_coluna_valor_desconto">Valor de Desconto</string>
+
+    <string name="frase_pedido_do_item_nao_encontrado">O Pedido do Item não foi encontrado no sistema.</string>
+
     <string name="title_activity_listagem_produtos">Listagem de Produtos</string>
     <string name="title_activity_listagem_pedidos">ListagemPedidosActivity</string>
     <string name="title_activity_listagem_produto_pedido">ListagemProdutoPedidoActivity</string>

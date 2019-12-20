@@ -8,6 +8,7 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -50,6 +51,8 @@ public class EdicaoPedidoActivity extends AppCompatActivity {
         if (pedidoAtual == null) {
             pedidoAtual = new Pedido();
             pedidoAtual.setDataPedido(new Date());
+
+            listaItensPedido = new ArrayList<>();
         }
     }
 
@@ -95,7 +98,6 @@ public class EdicaoPedidoActivity extends AppCompatActivity {
         pedidoAtual.setValorTotal(BigDecimal.ZERO);
         pedidoAtual.setTotalProdutos(BigDecimal.ZERO);
         pedidoAtual.setTotalItens(BigDecimal.ZERO);
-        pedidoAtual.setIdUsuario(ContextoAplicacao.getContextoAplicacao().getUsuarioLogado().getIdUsuario());
 
         try {
             ContextoAplicacao.getContextoAplicacao().getCriadorGerenciadores().getGerenciadorPedido().salvar(pedidoAtual);

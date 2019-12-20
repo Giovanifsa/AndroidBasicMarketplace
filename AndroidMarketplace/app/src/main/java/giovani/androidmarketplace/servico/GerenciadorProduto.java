@@ -7,55 +7,33 @@ import giovani.androidmarketplace.dados.daos.IProdutoDAO;
 import giovani.androidmarketplace.dados.entidades.Produto;
 import giovani.androidmarketplace.exceptions.DAOException;
 import giovani.androidmarketplace.exceptions.GerenciadorException;
+import giovani.androidmarketplace.utils.DecimalUtil;
 import giovani.androidmarketplace.utils.containers.Pair;
 import giovani.androidmarketplace.utils.containers.Triplet;
 
-public class GerenciadorProduto extends AbstractGerenciadorCRUD<Produto> {
+public class GerenciadorProduto extends AbstractGerenciadorCRUD<Produto, IProdutoDAO> {
     public GerenciadorProduto(ContextoAplicacao contextoAplicacao) {
-        super(contextoAplicacao);
+        super(contextoAplicacao, Produto.TABELA_PRODUTO);
     }
 
     @Override
-    public Produto buscar(Integer id) {
-        return getDAO().buscar(id);
-    }
-
-    @Override
-    public Produto salvar(Produto entidade) throws GerenciadorException {
+    protected void onPreSalvar(Produto entidade) throws GerenciadorException {
         validarCamposObrigatoriosProduto(entidade);
+        corrigirCamposDecimais(entidade);
         validarTamanhoCamposProduto(entidade);
         validarPrecoMinimo(entidade);
-
-        try {
-            return getDAO().salvar(entidade);
-        } catch (DAOException ex) {
-            ex.printStackTrace();
-            throw new GerenciadorException(getString(R.string.frase_falha_ao_salvar_entidade), "Produto");
-        }
     }
 
     @Override
-    public void atualizar(Produto entidade) throws GerenciadorException {
+    protected void onPreAtualizar(Produto entidade) throws GerenciadorException {
         validarCamposObrigatoriosProduto(entidade);
+        corrigirCamposDecimais(entidade);
         validarTamanhoCamposProduto(entidade);
         validarPrecoMinimo(entidade);
-
-        try {
-            getDAO().atualizar(entidade);
-        } catch (DAOException ex) {
-            ex.printStackTrace();
-            throw new GerenciadorException(getString(R.string.frase_falha_ao_atualizar_entidade), "Produto");
-        }
     }
 
-    @Override
-    public void deletar(Integer id) throws GerenciadorException {
-        try {
-            getDAO().deletar(id);
-        } catch (DAOException ex) {
-            ex.printStackTrace();
-            throw new GerenciadorException(getString(R.string.frase_falha_ao_deletar_entidade), "Produto");
-        }
+    private void corrigirCamposDecimais(Produto entidade) {
+        entidade.setPreco(DecimalUtil.formatarBDDuasCasasDecimais(entidade.getPreco()));
     }
 
     private void validarCamposObrigatoriosProduto(Produto entidade) throws GerenciadorException {
@@ -67,7 +45,8 @@ public class GerenciadorProduto extends AbstractGerenciadorCRUD<Produto> {
 
     private void validarTamanhoCamposProduto(Produto entidade) throws GerenciadorException {
         validarTamanhoCampos(
-                Triplet.from(R.string.palavra_produto_coluna_descricao, entidade.getDescricao(), 80)
+                Triplet.from(R.string.palavra_produto_coluna_descricao, entidade.getDescricao(), 80),
+                Triplet.from(R.string.palavra_produto_coluna_preco, DecimalUtil.formatarDuasCasasDecimais(entidade.getPreco()), 18)
         );
     }
 

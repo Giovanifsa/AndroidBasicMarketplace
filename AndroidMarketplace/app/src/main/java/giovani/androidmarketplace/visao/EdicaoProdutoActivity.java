@@ -49,7 +49,7 @@ public class EdicaoProdutoActivity extends AppCompatActivity {
         Produto produto = new Produto();
         produto.setIdProduto(idProdutoSendoEditado);
         produto.setDescricao(descricaoProduto);
-        produto.setPreco(new BigDecimal(precoProduto));
+        produto.setPreco(DecimalUtil.formatarDuasCasasDecimais(precoProduto));
 
         GerenciadorProduto gerenciadorProduto = ContextoAplicacao.getContextoAplicacao().getCriadorGerenciadores().getGerenciadorProduto();
 

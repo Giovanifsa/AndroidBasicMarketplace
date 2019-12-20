@@ -2,61 +2,56 @@ package giovani.androidmarketplace.servico;
 
 import giovani.androidmarketplace.R;
 import giovani.androidmarketplace.dados.daos.IPedidoItemDAO;
+import giovani.androidmarketplace.dados.entidades.Pedido;
 import giovani.androidmarketplace.dados.entidades.PedidoItem;
-import giovani.androidmarketplace.exceptions.DAOException;
 import giovani.androidmarketplace.exceptions.GerenciadorException;
+import giovani.androidmarketplace.utils.containers.Pair;
 
-public class GerenciadorPedidoItem extends AbstractGerenciadorCRUD<PedidoItem> {
+public class GerenciadorPedidoItem extends AbstractGerenciadorCRUD<PedidoItem, IPedidoItemDAO> {
     public GerenciadorPedidoItem(ContextoAplicacao contextoAplicacao) {
-        super(contextoAplicacao);
+        super(contextoAplicacao, PedidoItem.TABELA_PEDIDOITEM);
     }
 
     @Override
-    public PedidoItem buscar(Integer id) {
-        return getDAO().buscar(id);
-    }
-
-    @Override
-    public PedidoItem salvar(PedidoItem entidade) throws GerenciadorException {
+    protected void onPreSalvar(PedidoItem entidade) throws GerenciadorException {
         validarCamposObrigatoriosPedidoItem(entidade);
         validarTamanhoCamposPedidoItem(entidade);
-
-        try {
-            return getDAO().salvar(entidade);
-        } catch (DAOException ex) {
-            ex.printStackTrace();
-            throw new GerenciadorException(getString(R.string.frase_falha_ao_salvar_entidade), PedidoItem.TABELA_PEDIDOITEM);
-        }
     }
 
     @Override
-    public void atualizar(PedidoItem entidade) throws GerenciadorException {
+    protected void onPreAtualizar(PedidoItem entidade) throws GerenciadorException {
         validarCamposObrigatoriosPedidoItem(entidade);
         validarTamanhoCamposPedidoItem(entidade);
-
-        try {
-            getDAO().atualizar(entidade);
-        } catch (DAOException ex) {
-            ex.printStackTrace();
-            throw new GerenciadorException(getString(R.string.frase_falha_ao_atualizar_entidade), PedidoItem.TABELA_PEDIDOITEM);
-        }
     }
 
     @Override
-    public void deletar(Integer id) throws GerenciadorException {
-        try {
-            getDAO().deletar(id);
-        } catch (DAOException ex) {
-            ex.printStackTrace();
-            throw new GerenciadorException(getString(R.string.frase_falha_ao_deletar_entidade), PedidoItem.TABELA_PEDIDOITEM);
+    protected void onPostSalvar(PedidoItem entidade) throws GerenciadorException {
+        atualizarValoresPedido(entidade);
+    }
+
+    @Override
+    protected void onPostAtualizar(PedidoItem entidade) throws GerenciadorException {
+        atualizarValoresPedido(entidade);
+    }
+
+    private void atualizarValoresPedido(PedidoItem entidade) throws GerenciadorException {
+        Pedido pedidoDoItem = getContextoAplicacao().getCriadorDAOs().getPedidoDAO().buscar(entidade.getIdPedido());
+
+        if (pedidoDoItem == null) {
+            throw new GerenciadorException(getString(R.string.frase_pedido_do_item_nao_encontrado));
         }
+
+        getContextoAplicacao().getCriadorGerenciadores().getGerenciadorPedido().recalcularValoresPedido(pedidoDoItem.getId());
     }
 
     private void validarCamposObrigatoriosPedidoItem(PedidoItem entidade) throws GerenciadorException {
-        /*validarCamposObrigatorios(
-                Pair.from(R.string.palavra_produto_coluna_descricao, (Object) entidade.getDescricao()),
-                Pair.from(R.string.palavra_produto_coluna_preco, (Object) entidade.getPreco())
-        );*/
+        validarCamposObrigatorios(
+                Pair.from(R.string.frase_pedido_item_coluna_idpedido, (Object) entidade.getIdPedido()),
+                Pair.from(R.string.frase_pedido_item_coluna_idproduto, (Object) entidade.getIdProduto()),
+                Pair.from(R.string.frase_pedido_item_coluna_preco_venda, (Object) entidade.getPrecoVenda()),
+                Pair.from(R.string.frase_pedido_item_coluna_quantidade, (Object) entidade.getQuantidade()),
+                Pair.from(R.string.frase_pedido_item_coluna_valor_desconto, (Object) entidade.getValorDesconto())
+        );
     }
 
     private void validarTamanhoCamposPedidoItem(PedidoItem entidade) throws GerenciadorException {

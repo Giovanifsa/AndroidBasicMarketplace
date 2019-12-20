@@ -13,14 +13,9 @@ import giovani.androidmarketplace.utils.HashUtil;
 import giovani.androidmarketplace.utils.containers.Pair;
 import giovani.androidmarketplace.utils.containers.Triplet;
 
-public class GerenciadorUsuario extends AbstractGerenciadorCRUD<Usuario> {
+public class GerenciadorUsuario extends AbstractGerenciadorCRUD<Usuario, IUsuarioDAO> {
     public GerenciadorUsuario(ContextoAplicacao contextoAplicacao) {
-        super(contextoAplicacao);
-    }
-
-    @Override
-    public Usuario buscar(Integer id) {
-        return getDAO().buscar(id);
+        super(contextoAplicacao, Usuario.TABELA_USUARIO);
     }
 
     @Override
@@ -55,22 +50,7 @@ public class GerenciadorUsuario extends AbstractGerenciadorCRUD<Usuario> {
 
         Usuario usuarioCorrigido = corrigirCamposAtualizaveis(entidade);
 
-        try {
-            getDAO().atualizar(usuarioCorrigido);
-        } catch (DAOException ex) {
-            ex.printStackTrace();
-            throw new GerenciadorException(getString(R.string.frase_falha_ao_atualizar_entidade), "Usuario");
-        }
-    }
-
-    @Override
-    public void deletar(Integer id) throws GerenciadorException {
-        try {
-            getDAO().deletar(id);
-        } catch (DAOException ex) {
-            ex.printStackTrace();
-            throw new GerenciadorException(getString(R.string.frase_falha_ao_deletar_entidade), "Usuario");
-        }
+        rotinaAtualizarPadrao(usuarioCorrigido);
     }
 
     private void validarPerguntaSeguranca(Usuario entidade) throws GerenciadorException {
