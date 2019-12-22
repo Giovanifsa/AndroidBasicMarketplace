@@ -1,8 +1,10 @@
 package giovani.androidmarketplace.visao;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,6 +20,7 @@ import giovani.androidmarketplace.utils.modelos.IListenerProcesso;
 import giovani.androidmarketplace.visao.adaptadores.AdaptadorListagemProdutos;
 
 public class ListagemProdutosActivity extends AppCompatActivity {
+    private static final int ACTIVITY_PRODUTOS_CODIGO_RESULTADO = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +56,8 @@ public class ListagemProdutosActivity extends AppCompatActivity {
     }
 
     private void onClickNovoProduto(View v) {
-        ActivityUtil.iniciarActivity(this, EdicaoProdutoActivity.class);
+        ActivityUtil.iniciarActivityAguardandoResultado(ListagemProdutosActivity.this,
+                                EdicaoProdutoActivity.class, ACTIVITY_PRODUTOS_CODIGO_RESULTADO);
     }
 
     private void listarProdutos() {
@@ -71,7 +75,23 @@ public class ListagemProdutosActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
+        }, new IListenerProcesso<Produto>() {
+            @Override
+            public void processarDado(Produto dado) {
+                Bundle dadosProduto = new Bundle();
+                dadosProduto.putInt(Produto.COLUNA_IDPRODUTO, dado.getId());
+
+                ActivityUtil.iniciarActivityAguardandoResultado(ListagemProdutosActivity.this,
+                            EdicaoProdutoActivity.class, ACTIVITY_PRODUTOS_CODIGO_RESULTADO, dadosProduto);
+            }
         }));
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == ACTIVITY_PRODUTOS_CODIGO_RESULTADO) {
+            listarProdutos();
+        }
     }
 }
 

@@ -32,6 +32,11 @@ public class GerenciadorProduto extends AbstractGerenciadorCRUD<Produto, IProdut
         validarPrecoMinimo(entidade);
     }
 
+    @Override
+    protected void onPreDeletar(Integer id) throws GerenciadorException {
+        getContextoAplicacao().getCriadorGerenciadores().getGerenciadorPedidoItem().apagarItensPorProduto(id);
+    }
+
     private void corrigirCamposDecimais(Produto entidade) {
         entidade.setPreco(DecimalUtil.formatarBDDuasCasasDecimais(entidade.getPreco()));
     }

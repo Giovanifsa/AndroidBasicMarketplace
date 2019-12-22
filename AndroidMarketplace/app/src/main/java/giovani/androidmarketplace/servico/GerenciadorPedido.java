@@ -31,6 +31,11 @@ public class GerenciadorPedido extends AbstractGerenciadorCRUD<Pedido, IPedidoDA
         validarTamanhoCamposPedido(entidade);
     }
 
+    @Override
+    protected void onPreDeletar(Integer id) throws GerenciadorException {
+        getContextoAplicacao().getCriadorGerenciadores().getGerenciadorPedidoItem().apagarItensPorPedido(id);
+    }
+
     private void preencherCamposInsercao(Pedido pedido) throws GerenciadorException {
         Usuario usuario = getContextoAplicacao().getUsuarioLogado();
         validarUsuarioLogado(usuario);

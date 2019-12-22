@@ -23,7 +23,7 @@ public abstract class AbstractGerenciadorCRUD<E extends AbstractEntidade, D exte
 
     @Override
     public E salvarOuAtualizar(E entidade) throws GerenciadorException {
-        if (entidade.getId() != null) {
+        if (entidade.contemId()) {
             atualizar(entidade);
             return entidade;
         }
@@ -58,7 +58,11 @@ public abstract class AbstractGerenciadorCRUD<E extends AbstractEntidade, D exte
 
     @Override
     public void deletar(Integer id) throws GerenciadorException {
+        onPreDeletar(id);
+
         rotinaDeletarPadrao(id);
+
+        onPostDeletar(id);
     }
 
     protected E rotinaBuscarPadrao(Integer id) {
@@ -160,6 +164,14 @@ public abstract class AbstractGerenciadorCRUD<E extends AbstractEntidade, D exte
     }
 
     protected void onPostAtualizar(E entidade) throws GerenciadorException {
+
+    }
+
+    protected void onPreDeletar(Integer id) throws GerenciadorException {
+
+    }
+
+    protected void onPostDeletar(Integer id) throws GerenciadorException {
 
     }
 

@@ -17,4 +17,8 @@ public abstract class AbstractEntidade implements Serializable {
 
         return false;
     }
+
+    public boolean contemId() {
+        return getId() != null;
+    }
 }

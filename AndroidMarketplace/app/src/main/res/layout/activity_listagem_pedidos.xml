@@ -44,8 +44,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/pedidosRecyclerView"
-        android:layout_width="324dp"
-        android:layout_height="551dp"
+        android:layout_width="319dp"
+        android:layout_height="532dp"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/novoPedidoFAB"
         app:layout_constraintEnd_toEndOf="parent"

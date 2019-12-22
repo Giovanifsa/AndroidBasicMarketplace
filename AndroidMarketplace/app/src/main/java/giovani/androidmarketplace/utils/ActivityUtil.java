@@ -45,4 +45,16 @@ public class ActivityUtil {
 
         alertDialog.show();
     }
+
+    public static void iniciarActivityAguardandoResultado(Activity activityPai, Class<?> classeNovaActivity, int codigoRequisicao) {
+        Intent intentNovaActivity = new Intent(activityPai, classeNovaActivity);
+        activityPai.startActivityForResult(intentNovaActivity, codigoRequisicao);
+    }
+
+    public static void iniciarActivityAguardandoResultado(Activity activityPai, Class<?> classeNovaActivity, int codigoRequisicao, Bundle extras) {
+        Intent intentNovaActivity = new Intent(activityPai, classeNovaActivity);
+        intentNovaActivity.putExtras(extras);
+
+        activityPai.startActivityForResult(intentNovaActivity, codigoRequisicao);
+    }
 }

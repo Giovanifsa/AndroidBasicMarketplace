@@ -44,7 +44,7 @@
     <string name="frase_produto_selecionado">Produto: {0}</string>
     <string name="palavra_visualizar">Visualizar</string>
     <string name="palavra_remover">Remover</string>
-    <string name="frase_produtos_pedido">Produtos do Pedido</string>
+    <string name="frase_produtos_pedido">Itens do Pedido</string>
     <string name="frase_selecione_um_produto">Selecione um produto</string>
     <string name="palavra_quantidade">Quantidade</string>
     <string name="frase_preco_original">Preço Original</string>
@@ -53,6 +53,8 @@
     <string name="frase_total_item">Total do Item</string>
     <string name="palavra_salvar">Salvar</string>
     <string name="palavra_cancelar">Cancelar</string>
+    <string name="frase_pedido_item_produto_necessario">Selecione um produto para salvar.</string>
+    <string name="frase_pedido_item_quantidade_necessario">A quantidade do produto deve ser maior que ZERO.</string>
 
     <!-- Traduções de regras de negócio -->
     <string name="frase_exception_campos_obrigatorios_em_falta">Os seguintes campos obrigatórios estão em falta:</string>
@@ -101,6 +103,9 @@
     <string name="frase_pedido_item_coluna_quantidade">Quantidade de Itens</string>
     <string name="frase_pedido_item_coluna_preco_venda">Preço de Venda</string>
     <string name="frase_pedido_item_coluna_valor_desconto">Valor de Desconto</string>
+    <string name="frase_pedido_item_coluna_preco_original">Preço Original do Produto</string>
+    <string name="frase_pedido_item_coluna_preco_venda_abaixo_zero">O preço de venda do pedido deve ser igual ou maior que ZERO.</string>
+    <string name="frase_pedido_item_coluna_quantidade_abaixo_zero">A quantidade do pedido deve ser acima de ZERO.</string>
 
     <string name="frase_pedido_do_item_nao_encontrado">O Pedido do Item não foi encontrado no sistema.</string>
 

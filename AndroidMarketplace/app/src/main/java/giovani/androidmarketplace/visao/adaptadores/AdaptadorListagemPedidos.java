@@ -17,6 +17,7 @@ import java.util.List;
 import giovani.androidmarketplace.R;
 import giovani.androidmarketplace.dados.entidades.Pedido;
 import giovani.androidmarketplace.utils.ActivityUtil;
+import giovani.androidmarketplace.utils.DecimalUtil;
 import giovani.androidmarketplace.utils.StringUtil;
 import giovani.androidmarketplace.utils.modelos.IListenerProcesso;
 import giovani.androidmarketplace.visao.EdicaoPedidoActivity;
@@ -25,11 +26,14 @@ public class AdaptadorListagemPedidos extends RecyclerView.Adapter<AdaptadorList
     private Activity activityDona;
     private List<Pedido> listaPedidos;
     private IListenerProcesso<Pedido> listenerRemocaoPedido;
+    private IListenerProcesso<Pedido> listenerVisualizarPedido;
 
-    public AdaptadorListagemPedidos(Activity activityDona, List<Pedido> listaPedidos, IListenerProcesso<Pedido> listenerRemocaoPedido) {
+    public AdaptadorListagemPedidos(Activity activityDona, List<Pedido> listaPedidos,
+                                    IListenerProcesso<Pedido> listenerRemocaoPedido, IListenerProcesso<Pedido> listenerVisualizarPedido) {
         this.activityDona = activityDona;
         this.listaPedidos = listaPedidos;
         this.listenerRemocaoPedido = listenerRemocaoPedido;
+        this.listenerVisualizarPedido = listenerVisualizarPedido;
     }
 
     @NonNull
@@ -38,7 +42,7 @@ public class AdaptadorListagemPedidos extends RecyclerView.Adapter<AdaptadorList
         TextView v = (TextView) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.textview_adaptador_listagens, parent, false);
 
-        return new AdaptadorListagemPedidosViewHolder(v, activityDona, listenerRemocaoPedido);
+        return new AdaptadorListagemPedidosViewHolder(v, activityDona, listenerRemocaoPedido, listenerVisualizarPedido);
     }
 
     @Override
@@ -54,16 +58,19 @@ public class AdaptadorListagemPedidos extends RecyclerView.Adapter<AdaptadorList
     public static class AdaptadorListagemPedidosViewHolder extends RecyclerView.ViewHolder {
         private Activity activityDona;
         private IListenerProcesso<Pedido> listenerRemocaoPedido;
+        private IListenerProcesso<Pedido> listenerVisualizarPedido;
 
         private TextView textView;
         private Pedido pedido;
 
-        public AdaptadorListagemPedidosViewHolder(TextView textView, Activity activityDona, IListenerProcesso<Pedido> listenerRemocaoPedido) {
+        public AdaptadorListagemPedidosViewHolder(TextView textView, Activity activityDona,
+                                                  IListenerProcesso<Pedido> listenerRemocaoPedido, IListenerProcesso<Pedido> listenerVisualizarPedido) {
             super(textView);
 
             this.activityDona = activityDona;
             this.textView = textView;
             this.listenerRemocaoPedido = listenerRemocaoPedido;
+            this.listenerVisualizarPedido = listenerVisualizarPedido;
 
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -75,7 +82,7 @@ public class AdaptadorListagemPedidos extends RecyclerView.Adapter<AdaptadorList
 
         public void setDados(Pedido pedido) {
             this.pedido = pedido;
-            textView.setText(pedido.getCliente() + " - " + pedido.getValorTotal().toPlainString());
+            textView.setText(pedido.getCliente() + " - " + DecimalUtil.formatarDuasCasasDecimais(pedido.getValorTotal()));
         }
 
         private void onClickItemListagem(TextView textView) {
@@ -83,7 +90,7 @@ public class AdaptadorListagemPedidos extends RecyclerView.Adapter<AdaptadorList
 
             String textoTitulo =
                     StringUtil.formatMensagem(activityDona.getString(R.string.frase_pedido_selecionado),
-                                pedido.getCliente() + " - " + pedido.getValorTotal().toPlainString());
+                                pedido.getCliente() + " - " + DecimalUtil.formatarDuasCasasDecimais(pedido.getValorTotal()));
 
             builder.setTitle(textoTitulo);
 
@@ -95,16 +102,11 @@ public class AdaptadorListagemPedidos extends RecyclerView.Adapter<AdaptadorList
                             switch (position) {
                                 case 0: {
                                     listenerRemocaoPedido.processarDado(pedido);
-
                                     break;
                                 }
 
                                 default: {
-                                    Bundle dadosPedido = new Bundle();
-                                    dadosPedido.putInt(Pedido.COLUNA_IDPEDIDO, pedido.getId());
-
-                                    ActivityUtil.iniciarActivity(activityDona, EdicaoPedidoActivity.class, dadosPedido);
-
+                                    listenerVisualizarPedido.processarDado(pedido);
                                     break;
                                 }
                             }

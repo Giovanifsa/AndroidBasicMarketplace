@@ -31,14 +31,14 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listagemProdutosRecyclerView"
-        android:layout_width="365dp"
-        android:layout_height="538dp"
+        android:layout_width="330dp"
+        android:layout_height="506dp"
         app:layout_constraintBottom_toTopOf="@+id/novoFloatingActionButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.489"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/listagemProdutosTextView"
-        app:layout_constraintVertical_bias="0.333" />
+        app:layout_constraintVertical_bias="0.428" />
 
     <TextView
         android:id="@+id/listagemProdutosTextView"

@@ -25,11 +25,14 @@ public class AdaptadorListagemProdutos extends RecyclerView.Adapter<AdaptadorLis
     private Activity activityDona;
     private List<Produto> listaProdutos;
     private IListenerProcesso<Produto> listenerRemocaoProduto;
+    private IListenerProcesso<Produto> listenerVisualizarProduto;
 
-    public AdaptadorListagemProdutos(Activity activityDona, List<Produto> listaProdutos, IListenerProcesso<Produto> listenerRemocaoProduto) {
+    public AdaptadorListagemProdutos(Activity activityDona, List<Produto> listaProdutos,
+                                     IListenerProcesso<Produto> listenerRemocaoProduto, IListenerProcesso<Produto> listenerVisualizarProduto) {
         this.activityDona = activityDona;
         this.listaProdutos = listaProdutos;
         this.listenerRemocaoProduto = listenerRemocaoProduto;
+        this.listenerVisualizarProduto = listenerVisualizarProduto;
     }
 
     @NonNull
@@ -38,7 +41,7 @@ public class AdaptadorListagemProdutos extends RecyclerView.Adapter<AdaptadorLis
         TextView v = (TextView) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.textview_adaptador_listagens, parent, false);
 
-        return new AdaptadorListagemProdutosViewHolder(v, activityDona, listenerRemocaoProduto);
+        return new AdaptadorListagemProdutosViewHolder(v, activityDona, listenerRemocaoProduto, listenerVisualizarProduto);
     }
 
     @Override
@@ -54,16 +57,19 @@ public class AdaptadorListagemProdutos extends RecyclerView.Adapter<AdaptadorLis
     public static class AdaptadorListagemProdutosViewHolder extends RecyclerView.ViewHolder {
         private Activity activityDona;
         private IListenerProcesso<Produto> listenerRemocaoProduto;
+        private IListenerProcesso<Produto> listenerVisualizarProduto;
 
         private TextView textView;
         private Produto produto;
 
-        public AdaptadorListagemProdutosViewHolder(TextView textView, Activity activityDona, IListenerProcesso<Produto> listenerRemocaoProduto) {
+        public AdaptadorListagemProdutosViewHolder(TextView textView, Activity activityDona,
+                                                   IListenerProcesso<Produto> listenerRemocaoProduto, IListenerProcesso<Produto> listenerVisualizarProduto) {
             super(textView);
 
             this.activityDona = activityDona;
             this.textView = textView;
             this.listenerRemocaoProduto = listenerRemocaoProduto;
+            this.listenerVisualizarProduto = listenerVisualizarProduto;
 
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -86,24 +92,17 @@ public class AdaptadorListagemProdutos extends RecyclerView.Adapter<AdaptadorLis
 
             builder.setTitle(textoTitulo);
 
-            builder.setItems(new CharSequence[]{activityDona.getString(R.string.palavra_remover),
-                                                activityDona.getString(R.string.palavra_visualizar)},
-
+            builder.setItems(new CharSequence[]{activityDona.getString(R.string.palavra_remover), activityDona.getString(R.string.palavra_visualizar)},
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int position) {
                             switch (position) {
                                 case 0: {
                                     listenerRemocaoProduto.processarDado(produto);
-
                                     break;
                                 }
 
                                 default: {
-                                    Bundle dadosProduto = new Bundle();
-                                    dadosProduto.putInt(Produto.COLUNA_IDPRODUTO, produto.getId());
-
-                                    ActivityUtil.iniciarActivity(activityDona, EdicaoProdutoActivity.class, dadosProduto);
-
+                                    listenerVisualizarProduto.processarDado(produto);
                                     break;
                                 }
                             }

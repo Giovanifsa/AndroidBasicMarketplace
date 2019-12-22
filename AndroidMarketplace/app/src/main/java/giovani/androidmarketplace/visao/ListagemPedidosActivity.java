@@ -1,8 +1,10 @@
 package giovani.androidmarketplace.visao;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,6 +22,7 @@ import giovani.androidmarketplace.utils.modelos.IListenerProcesso;
 import giovani.androidmarketplace.visao.adaptadores.AdaptadorListagemPedidos;
 
 public class ListagemPedidosActivity extends AppCompatActivity {
+    private int ACTIVITY_CODIGO_RETORNO_EDICAO_PEDIDO = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +60,7 @@ public class ListagemPedidosActivity extends AppCompatActivity {
     }
 
     private void onClickNovoPedidoFAB(FloatingActionButton v) {
-        ActivityUtil.iniciarActivity(this, EdicaoPedidoActivity.class);
+        ActivityUtil.iniciarActivityAguardandoResultado(ListagemPedidosActivity.this, EdicaoPedidoActivity.class, ACTIVITY_CODIGO_RETORNO_EDICAO_PEDIDO);
     }
 
     private void listarPedidos() {
@@ -75,6 +78,28 @@ public class ListagemPedidosActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
+        }, new IListenerProcesso<Pedido>() {
+            @Override
+            public void processarDado(Pedido dado) {
+                Bundle dadosPedido = new Bundle();
+                dadosPedido.putInt(Pedido.COLUNA_IDPEDIDO, dado.getId());
+
+                ActivityUtil.iniciarActivityAguardandoResultado(ListagemPedidosActivity.this, EdicaoPedidoActivity.class,
+                                                                                ACTIVITY_CODIGO_RETORNO_EDICAO_PEDIDO, dadosPedido);
+            }
         }));
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == ACTIVITY_CODIGO_RETORNO_EDICAO_PEDIDO) {
+            listarPedidos();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        setResult(RESULT_OK);
+        super.onDestroy();
     }
 }

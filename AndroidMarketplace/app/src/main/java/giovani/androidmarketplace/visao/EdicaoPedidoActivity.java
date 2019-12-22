@@ -20,12 +20,13 @@ import giovani.androidmarketplace.exceptions.GerenciadorException;
 import giovani.androidmarketplace.servico.ContextoAplicacao;
 import giovani.androidmarketplace.utils.ActivityUtil;
 import giovani.androidmarketplace.utils.DateUtil;
+import giovani.androidmarketplace.utils.DecimalUtil;
 import giovani.androidmarketplace.utils.ToastUtil;
 
 public class EdicaoPedidoActivity extends AppCompatActivity {
-    private ArrayList<PedidoItem> listaItensPedido;
-    private ArrayList<PedidoItem> listaItensRemovidos = new ArrayList<>();
+    private static final int RESULT_CODE_LISTAGEM_ITEM_PEDIDO = 1;
 
+    private ArrayList<PedidoItem> listaItensPedido;
     private Pedido pedidoAtual;
 
     @Override
@@ -54,6 +55,8 @@ public class EdicaoPedidoActivity extends AppCompatActivity {
 
             listaItensPedido = new ArrayList<>();
         }
+
+        recalcularResumoPedido();
     }
 
     private void prepararListeners() {
@@ -86,7 +89,7 @@ public class EdicaoPedidoActivity extends AppCompatActivity {
         Intent intentItensPedido = new Intent(this, ListagemItemPedidoActivity.class);
         intentItensPedido.putExtra("listaItensPedido", listaItensPedido);
 
-        startActivityForResult(intentItensPedido, 123);
+        startActivityForResult(intentItensPedido, RESULT_CODE_LISTAGEM_ITEM_PEDIDO);
     }
 
     private void onClickSalvarPedidoButton(Button button) {
@@ -100,7 +103,8 @@ public class EdicaoPedidoActivity extends AppCompatActivity {
         pedidoAtual.setTotalItens(BigDecimal.ZERO);
 
         try {
-            ContextoAplicacao.getContextoAplicacao().getCriadorGerenciadores().getGerenciadorPedido().salvar(pedidoAtual);
+            pedidoAtual = ContextoAplicacao.getContextoAplicacao().getCriadorGerenciadores().getGerenciadorPedido().salvarOuAtualizar(pedidoAtual);
+            ContextoAplicacao.getContextoAplicacao().getCriadorGerenciadores().getGerenciadorPedidoItem().salvarItensDoPedido(pedidoAtual, listaItensPedido);
 
             ToastUtil.printShort(this, R.string.frase_alteracoes_salvas);
 
@@ -113,11 +117,35 @@ public class EdicaoPedidoActivity extends AppCompatActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 123) {
-            if (resultCode == RESULT_OK) {
-                listaItensPedido = (ArrayList<PedidoItem>) data.getSerializableExtra("listaItensPedido");
-                listaItensRemovidos = (ArrayList<PedidoItem>) data.getSerializableExtra("listaItensRemovidos");
-            }
+        if (requestCode == RESULT_CODE_LISTAGEM_ITEM_PEDIDO && resultCode == RESULT_OK) {
+            listaItensPedido = (ArrayList<PedidoItem>) data.getSerializableExtra("listaItensPedido");
+            recalcularResumoPedido();
         }
+    }
+
+    private void recalcularResumoPedido() {
+        BigDecimal resumoTotalProduto = BigDecimal.ZERO;
+        BigDecimal resumoTotalItens = BigDecimal.ZERO;
+        BigDecimal resumoTotalPedido = BigDecimal.ZERO;
+
+        ArrayList<Integer> idsProdutosTotalizados = new ArrayList<>();
+
+        for (PedidoItem item : listaItensPedido) {
+            if (!idsProdutosTotalizados.contains(item.getIdProduto())) {
+                idsProdutosTotalizados.add(item.getIdProduto());
+                resumoTotalProduto = resumoTotalProduto.add(BigDecimal.ONE);
+            }
+
+            resumoTotalItens = resumoTotalItens.add(item.getQuantidade());
+            resumoTotalPedido = resumoTotalPedido.add(item.getPrecoVenda().multiply(item.getQuantidade()));
+        }
+
+        EditText campoTotalProdutos = findViewById(R.id.totalProdutoEditText);
+        EditText campoTotalItens = findViewById(R.id.totalItensEditText);
+        EditText campoTotalPedido = findViewById(R.id.totalPedidoEditText);
+
+        campoTotalProdutos.setText(DecimalUtil.formatarDuasCasasDecimais(resumoTotalProduto));
+        campoTotalItens.setText(DecimalUtil.formatarDuasCasasDecimais(resumoTotalItens));
+        campoTotalPedido.setText(DecimalUtil.formatarDuasCasasDecimais(resumoTotalPedido));
     }
 }

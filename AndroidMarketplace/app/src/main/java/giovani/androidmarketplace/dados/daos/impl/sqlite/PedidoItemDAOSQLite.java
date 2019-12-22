@@ -10,6 +10,7 @@ import java.util.List;
 
 import giovani.androidmarketplace.dados.conectores.impl.ConectorBancoSQLite;
 import giovani.androidmarketplace.dados.daos.IPedidoItemDAO;
+import giovani.androidmarketplace.dados.entidades.Pedido;
 import giovani.androidmarketplace.dados.entidades.PedidoItem;
 import giovani.androidmarketplace.exceptions.DAOException;
 import giovani.androidmarketplace.exceptions.EnumExceptionsFixas;
@@ -141,6 +142,29 @@ public class PedidoItemDAOSQLite extends AbstractDAOSQLite implements IPedidoIte
                 },
                 PedidoItem.COLUNA_IDPEDIDO + " = ?",
                 new String[] {idPedido.toString()},
+                null, null, null
+        );
+
+        List<PedidoItem> listaItensEncontrados = new ArrayList<>();
+
+        while (consulta.moveToNext()) {
+            listaItensEncontrados.add(buscar(getInt(consulta, PedidoItem.COLUNA_IDPEDIDOITEM)));
+        }
+
+        return listaItensEncontrados;
+    }
+
+    @Override
+    public List<PedidoItem> getAllItensContendoProduto(Integer idProduto) {
+        SQLiteDatabase database = iniciarLeitura();
+
+        Cursor consulta = database.query(
+                PedidoItem.TABELA_PEDIDOITEM,
+                new String[] {
+                        PedidoItem.COLUNA_IDPEDIDOITEM
+                },
+                PedidoItem.COLUNA_IDPRODUTO + " = ?",
+                new String[] {idProduto.toString()},
                 null, null, null
         );
 
