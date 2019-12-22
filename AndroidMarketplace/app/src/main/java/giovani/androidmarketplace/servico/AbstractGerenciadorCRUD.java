@@ -120,19 +120,19 @@ public abstract class AbstractGerenciadorCRUD<E extends AbstractEntidade, D exte
     }
 
     protected void validarTamanhoCampos(Triplet<Integer, String, Integer>... camposStrings) throws GerenciadorException {
-        List<String> camposGrandes = new ArrayList<>();
+        List<Pair<String, Integer>> camposGrandes = new ArrayList<>();
 
         for (Triplet<Integer, String, Integer> campoValidando : camposStrings) {
             if (campoValidando.getObjetoMeio().length() > campoValidando.getObjetoDireita()) {
-                camposGrandes.add(getString(campoValidando.getObjetoEsquerda()));
+                camposGrandes.add(Pair.from(getString(campoValidando.getObjetoEsquerda()), campoValidando.getObjetoDireita()));
             }
         }
 
         if (!camposGrandes.isEmpty()) {
             String mensagem = contextoAplicacao.getString(R.string.frase_exception_campos_muito_grandes);
 
-            for (String campo : camposGrandes) {
-                mensagem += "\n" + campo;
+            for (Pair<String, Integer> campo : camposGrandes) {
+                mensagem += "\n" + campo.getObjetoEsquerda() + "(" + campo.getObjetoDireita() + ")";
             }
 
             throw new GerenciadorException(mensagem);

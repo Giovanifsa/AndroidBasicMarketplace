@@ -9,10 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".visao.RecuperarContaActivity"></activity>
         <activity
             android:name=".visao.ListagemItemPedidoActivity"
             android:label="@string/title_activity_listagem_produto_pedido"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".visao.EdicaoPedidoActivity" />
         <activity
             android:name=".visao.ListagemPedidosActivity"

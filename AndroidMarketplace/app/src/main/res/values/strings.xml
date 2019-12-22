@@ -55,6 +55,14 @@
     <string name="palavra_cancelar">Cancelar</string>
     <string name="frase_pedido_item_produto_necessario">Selecione um produto para salvar.</string>
     <string name="frase_pedido_item_quantidade_necessario">A quantidade do produto deve ser maior que ZERO.</string>
+    <string name="frase_total_produtos">Total de Produtos</string>
+    <string name="frase_total_itens">Total de Itens</string>
+    <string name="frase_total_pedido">Total do Pedido</string>
+    <string name="frase_recuperacao_conta">Recuperação de Conta</string>
+    <string name="frase_login_conta">Login da conta</string>
+    <string name="frase_recuperar_conta">Recuperar Conta</string>
+    <string name="frase_senha_alterada_com_sucesso">Senha alterada com sucesso</string>
+    <string name="frase_login_conta_deve_ser_fornecido">O login da conta deve ser fornecido.</string>
 
     <!-- Traduções de regras de negócio -->
     <string name="frase_exception_campos_obrigatorios_em_falta">Os seguintes campos obrigatórios estão em falta:</string>
@@ -80,12 +88,13 @@
 
     <string name="frase_usuario_com_login_ja_existe">Um usuário com o mesmo login já está cadastrado.</string>
     <string name="frase_login_usuario_nao_encontrado">O usuário {0} não foi encontrado.</string>
+    <string name="frase_resposta_pergunta_seguranca_invalida">Resposta inválida para a pergunta de segurança do usuário {0}.</string>
 
     <!-- |- Produto -->
     <string name="palavra_produto_coluna_descricao">Descrição</string>
     <string name="palavra_produto_coluna_preco">Preço</string>
     <string name="frase_impossivel_cadastrar_produtos_sem_preco">Não é possível cadastrar um produto sem um preço.</string>
-    
+
     <!-- |- Pedido -->
     <string name="frase_pedido_coluna_idusuario">Usuário do Pedido</string>
     <string name="frase_pedido_coluna_cliente">Nome do Cliente do Pedido</string>
@@ -96,7 +105,7 @@
     <string name="frase_pedido_coluna_valor_total">Valor Total do Pedido</string>
 
     <string name="frase_pedido_nao_encontrado">O Pedido não foi encontrado no sistema.</string>
-    
+
     <!-- |- PedidoItem -->
     <string name="frase_pedido_item_coluna_idproduto">Produto do Item</string>
     <string name="frase_pedido_item_coluna_idpedido">Pedido do Item</string>

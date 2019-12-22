@@ -31,8 +31,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cadastroProdutoTextView"
-        app:layout_constraintVertical_bias="0.224" />
+        app:layout_constraintTop_toBottomOf="@+id/linhaTextView"
+        app:layout_constraintVertical_bias="0.147" />
 
     <EditText
         android:id="@+id/precoProdutoEditText"
@@ -60,4 +60,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/precoProdutoEditText"
         app:layout_constraintVertical_bias="0.06" />
+
+    <TextView
+        android:id="@+id/linhaTextView"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cadastroProdutoTextView"
+        app:layout_constraintVertical_bias="0.02" />
 </androidx.constraintlayout.widget.ConstraintLayout>

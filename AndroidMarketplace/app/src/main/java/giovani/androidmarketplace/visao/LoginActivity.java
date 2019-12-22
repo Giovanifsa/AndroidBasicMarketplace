@@ -84,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void onClickSenhaEsquecida(TextView textView) {
-        ToastUtil.printShort(this, "Teste");
+        ActivityUtil.iniciarActivity(this, RecuperarContaActivity.class);
     }
 
     private void onClickCriarConta(TextView textView) {

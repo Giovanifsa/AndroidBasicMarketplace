@@ -53,6 +53,21 @@ public class GerenciadorUsuario extends AbstractGerenciadorCRUD<Usuario, IUsuari
         rotinaAtualizarPadrao(usuarioCorrigido);
     }
 
+    public void recuperarConta(String login, String respostaPerguntaSeguranca, String novaSenha) throws GerenciadorException {
+        Usuario usuario = getDAO().buscarPorLogin(login);
+
+        if (usuario == null) {
+            throw new GerenciadorException(getString(R.string.frase_login_usuario_nao_encontrado), login);
+        }
+
+        if (!usuario.getRespostaPerguntaSeguranca().toLowerCase().equals(respostaPerguntaSeguranca)) {
+            throw new GerenciadorException(getString(R.string.frase_resposta_pergunta_seguranca_invalida), usuario.getNome());
+        }
+
+        usuario.setSenha(novaSenha);
+        atualizar(usuario);
+    }
+
     private void validarPerguntaSeguranca(Usuario entidade) throws GerenciadorException {
         if (entidade.getNumeroPerguntaSeguranca() == EnumPerguntaSeguranca.NENHUMA_PERGUNTA_SELECIONADA) {
             throw new GerenciadorException(getString(R.string.frase_obrigatorio_selecionar_tipo_pergunta_seguranca));

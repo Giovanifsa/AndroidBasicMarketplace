@@ -33,12 +33,24 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/itemPedidoRecyclerView"
-        android:layout_width="329dp"
-        android:layout_height="546dp"
-        app:layout_constraintBottom_toTopOf="@+id/inserirProdutoPedidoFAB"
+        android:layout_width="343dp"
+        android:layout_height="547dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linhaTextView"
+        app:layout_constraintVertical_bias="0.132" />
+
+    <TextView
+        android:id="@+id/linhaTextView"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/produtosPedidoTextView"
-        app:layout_constraintVertical_bias="0.625" />
+        app:layout_constraintVertical_bias="0.023" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

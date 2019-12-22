@@ -20,7 +20,7 @@ public class Usuario extends AbstractEntidade {
 
     @Override
     public Integer getId() {
-        return null;
+        return getIdUsuario();
     }
 
     public Integer getIdUsuario() {

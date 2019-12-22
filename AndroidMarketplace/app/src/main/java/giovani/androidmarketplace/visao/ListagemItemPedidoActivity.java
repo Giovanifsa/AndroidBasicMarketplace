@@ -225,9 +225,9 @@ public class ListagemItemPedidoActivity extends AppCompatActivity {
             else
                 pedidoItem = new PedidoItem();
 
-            popularPedidoItemAPartirDialog(dialog, pedidoItem);
-
             realizarValidacoesAoSalvar(dialog);
+
+            popularPedidoItemAPartirDialog(dialog, pedidoItem);
 
             salvarPedidoItem(pedidoItem);
 
@@ -260,9 +260,9 @@ public class ListagemItemPedidoActivity extends AppCompatActivity {
 
         Produto produtoSelecionado = listaProdutosDialog.get(posProdutoSelecionado);
 
+        pedidoItem.setIdProduto(produtoSelecionado.getId());
         pedidoItem.setPrecoVenda(precoVenda);
         pedidoItem.setQuantidade(quantidade);
-        pedidoItem.setIdProduto(produtoSelecionado.getId());
         pedidoItem.setValorDesconto(valorDesconto);
         pedidoItem.setPrecoOriginal(precoOriginal);
     }

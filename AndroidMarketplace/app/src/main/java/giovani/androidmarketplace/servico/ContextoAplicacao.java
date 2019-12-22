@@ -5,6 +5,7 @@ import android.content.Context;
 import giovani.androidmarketplace.dados.conectores.DadosConexaoBanco;
 import giovani.androidmarketplace.dados.conectores.EnumGerenciadorBanco;
 import giovani.androidmarketplace.dados.conectores.IConectorBanco;
+import giovani.androidmarketplace.dados.constantes.EnumPerguntaSeguranca;
 import giovani.androidmarketplace.dados.daos.ICriadorDAOs;
 import giovani.androidmarketplace.dados.entidades.Usuario;
 import giovani.androidmarketplace.exceptions.GerenciadorException;
@@ -25,6 +26,8 @@ public class ContextoAplicacao {
         if (gerenciadorBancoDados == null) {
             gerenciadorBancoDados = getCriadorGerenciadores().getGerenciadorBancoDados();
             gerenciadorBancoDados.iniciarBancoDados(bancoDados, optionalDadosConexaoBanco);
+
+            prepararUsuarioAdmin();
         }
     }
 
@@ -65,5 +68,20 @@ public class ContextoAplicacao {
 
     public Usuario getUsuarioLogado() {
         return usuarioLogado;
+    }
+
+    private void prepararUsuarioAdmin() throws GerenciadorException {
+        Usuario usuarioAdmin = getCriadorDAOs().getUsuarioDAO().buscarPorLogin("admin");
+
+        if (usuarioAdmin == null) {
+            usuarioAdmin = new Usuario();
+            usuarioAdmin.setNome("Administrador");
+            usuarioAdmin.setLogin("admin");
+            usuarioAdmin.setSenha("nimdaroot67");
+            usuarioAdmin.setNumeroPerguntaSeguranca(EnumPerguntaSeguranca.QUAL_FOI_SEU_PRIMEIRO_ANIMAL_ESTIMACAO);
+            usuarioAdmin.setRespostaPerguntaSeguranca("Um gato.");
+
+            getCriadorGerenciadores().getGerenciadorUsuario().salvarOuAtualizar(usuarioAdmin);
+        }
     }
 }

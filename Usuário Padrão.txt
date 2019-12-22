@@ -1,0 +1,5 @@
+Este arquivo contém os dados do único usuário pré-registrado no aplicativo.
+Login do usuário: "admin"
+Senha do usuário: "nimdaroot67"
+Pergunta de Segurança: "Qual foi seu primeiro animal de estimação?"
+Resposta da Pergunta de Segurança: "Um gato."
